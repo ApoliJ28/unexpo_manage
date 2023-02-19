@@ -7,7 +7,7 @@ from django.db import models
 
 class Asignatura(models.Model):
     Codigo = models.IntegerField(primary_key=True, unique=True)
-    Nombre = models.CharField(max_length=100)
+    Nombre = models.CharField(max_length=100,unique=True)
     Especialidad = models.CharField(max_length=100)
     Unidades = models.IntegerField()
     CantidadMax = models.IntegerField()
