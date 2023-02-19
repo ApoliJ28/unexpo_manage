@@ -2,9 +2,7 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 
 # Create your models here.
-from django.db import models
 
-# Create your models here.
 
 
 class Asignatura(models.Model):
@@ -14,9 +12,9 @@ class Asignatura(models.Model):
     Unidades = models.IntegerField()
     CantidadMax = models.IntegerField()
     Abierta = models.BooleanField(default=False)
-    Unidades = models.IntegerField()
+    
 
-    # Para que lo podemos visualizar en el administrardoe
+  #Visualizacion de Alumno y especialidad
 
     def __str__(self):
         return self.Nombre + " su cargo es  " + self.Especialidad
