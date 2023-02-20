@@ -8,7 +8,7 @@ class Asignatura(models.Model):
     credito_requerido = models.IntegerField()
     cantidadmax_estudiantes = models.IntegerField()
     cantidad_estudiantes = models.IntegerField()
-    abierta = models.BooleanField(default=False)
+    abierta = models.BooleanField(default=True)
     opciones_carrera = [('Industrial', 'Ingieneria Industrial'), ('Mecanica', 'Ingieneria Mecanica'),
                         ('Sistemas', 'Ingieneria Sistemas'), ('General', 'General')]
     carrera = models.CharField(
