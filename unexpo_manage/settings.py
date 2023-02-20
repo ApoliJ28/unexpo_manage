@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "crispy_forms",
     "crispy_bootstrap5",
-    'Academico'
+    'Apps.Academico'
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

@@ -1,0 +1,91 @@
+
+
+
+{%extends "./plantilla.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Pensum
+{% endblock %}
+
+
+{% block body %}
+
+    <section class="row">
+               <!-- Seccion de listado de Cursos -->
+               <div class="col-md-6 col-sm-12 col-lg-4 col-xl-4">
+                <h1>Actulización Pensum</h1>
+                <div class="card">
+                    <div class="card-body">
+                        <form action="" method="POST" class="form">
+                            <!-- Comando que permite evitar que nos conen la pagina -->
+                            {% csrf_token %} 
+                            <div class="form-group">
+                            {{form|crispy}}
+                            </div>
+    
+                            <div class="form-group">
+                                <button  class="btn btn-success btn-block text-white">Guardar</button>
+                            </div>
+                            {% if success %}
+                            <div class="alert alert-succes mt-5" role="alert">
+                                <strong>{{success}}</strong>
+                            </div>
+                            {% endif %}
+                            
+                            {% if error %}
+                                <div class="alert alert-succes mt-5" role="alert">
+                                    <strong>{{error}}</strong>
+                                </div>
+                            
+                            {% endif %}
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+    
+            <style>
+    
+            .form button{
+                width: 100%;
+            }
+            
+                </style>
+
+
+ <!-- Seccion del Formulario -->
+        <div class="col-md-6 col-sm-12 col-lg-8 col-xl-8">
+            <h1>Pensum Universitario</h1>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Codigo</th>
+                            <th>Nombre</th>
+                            <th>Creditos</th>
+                            <th>Alumnos Inscritos</th>
+                            <th>Especialidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                            {% for asignatura in asignaturas %}
+                            <tr>
+                                <td>{{asignatura.codigo}}</td>
+                                <td>{{asignatura.nombre}}</td>
+                                <td>{{asignatura.unidades}}</td>
+                                <td>{{asignatura.cantidad_estudiantes}}</td>
+                                <td>{{asignatura.carrera}}</td>
+                            </tr>
+                            {% endfor %}
+                        
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
