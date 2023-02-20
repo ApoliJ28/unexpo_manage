@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Asignatura(models.Model):
-    codigo = models.CharField(primary_key=True,  max_length=6)
+    codigo = models.CharField(primary_key=True,  max_length=5)
     nombre = models.CharField(max_length=100)
     unidades = models.PositiveIntegerField()
     credito_requerido = models.IntegerField()
@@ -17,3 +17,4 @@ class Asignatura(models.Model):
     def __str__(self):
         datos = "{0} {1} {2}"
         return datos.format(self.codigo, self.carrera, self.nombre)
+
