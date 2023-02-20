@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 # Acceder a directorio raiz
 urlpatterns = [
-    path('pensum/', views.asignatura_admin),
-    path('login/', views.login)
+    path('pensum/', views.asignatura_admin, name= "pensum"),
+    path('', views.inicio, name = "inicio" ),
+    path('salir/', views.salir, name = "salir"),
 ]

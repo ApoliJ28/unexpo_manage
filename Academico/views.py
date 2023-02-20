@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
-# Exportamos el modelo de los cursos
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 from .forms import AsignaturaForm
 from .models import Asignatura
+
+@login_required
+
 # Create your views here.
-
-# Importamos el modelo de las tareas
-
 
 def asignatura_admin(request):
     form = AsignaturaForm()
@@ -25,6 +26,11 @@ def asignatura_admin(request):
 
     return render(request, "materia.html", {"asignaturas": asignaturas, "form": form})
 
+@login_required
 
-def login(request):
-    return render(request, "login.html")
+def inicio(request):
+    return render(request, "index.html")
+
+def salir(request):
+    logout(request)
+    return redirect('/')

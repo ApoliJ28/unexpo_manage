@@ -1,7 +1,4 @@
-
-
-
-{%extends "./plantilla.html" %}
+{%extends "./base.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
 
@@ -9,6 +6,11 @@
     Pensum
 {% endblock %}
 
+{% block enlace_salir %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'salir' %}">Cerrar Sesion</a>
+    </li>
+{% endblock %}
 
 {% block body %}
 
@@ -55,7 +57,7 @@
                 </style>
 
 
- <!-- Seccion del Formulario -->
+<!-- Seccion del Formulario -->
         <div class="col-md-6 col-sm-12 col-lg-8 col-xl-8">
             <h1>Pensum Universitario</h1>
             <div class="table-responsive">
