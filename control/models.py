@@ -33,5 +33,4 @@ class User(AbstractUser):
     # TipoEstudiante = models.CharField(
     #     choices=opciones_modalidad, max_length=15, verbose_name=u'Estudiante')
 
-    def __str__(self):
-        return self.user.username + " " + self.carrera
+   
