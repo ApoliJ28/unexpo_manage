@@ -86,5 +86,4 @@ def salir(request):
     return redirect('/')
 
 
-def iniciarsesion(request):
-    return render(request, "login.html")
+
