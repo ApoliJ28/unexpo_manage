@@ -6,10 +6,9 @@ from .forms import AsignaturaForm
 from .models import Asignatura
 from django.contrib import messages
 
+
 @login_required
-
 # Create your views here.
-
 def asignatura_admin(request):
     form = AsignaturaForm()
     # En una variable guardamos todos los materia de una db
@@ -30,8 +29,8 @@ def asignatura_admin(request):
 
     return render(request, "materia.html", {"asignaturas": asignaturas, "form": form})
 
-@login_required
 
+@login_required
 def eliminarCurso(request, codigo):
     asignatura = Asignatura.objects.get(codigo=codigo)
     asignatura.delete()
@@ -40,14 +39,14 @@ def eliminarCurso(request, codigo):
 
     return redirect("/pensum")
 
-@login_required
 
+@login_required
 def edicionCurso(request, codigo):
     asignatura = Asignatura.objects.get(codigo=codigo)
-    return render(request, "edicion_materia.html", {"asignatura":asignatura})
+    return render(request, "edicion_materia.html", {"asignatura": asignatura})
+
 
 @login_required
-
 def editarCurso(request):
     codigo = request.POST['codigo']
     nombre = request.POST['nombre']
@@ -55,9 +54,9 @@ def editarCurso(request):
     credito_requerido = request.POST['credito_requerido']
     cantidadmax_estudiantes = request.POST['cantidadmax_estudiantes']
     cantidad_estudiantes = request.POST['cantidad_estudiantes']
-    carrera =  request.POST['carrera']
-    
-    abierta = request.POST.get('abierta',False)
+    carrera = request.POST['carrera']
+
+    abierta = request.POST.get('abierta', False)
     abierta_bool = False
     if abierta == 'on':
         abierta_bool = True
@@ -76,11 +75,16 @@ def editarCurso(request):
 
     return redirect("/pensum")
 
-@login_required
 
+@login_required
 def inicio(request):
     return render(request, "index.html")
+
 
 def salir(request):
     logout(request)
     return redirect('/')
+
+
+def iniciarsesion(request):
+    return render(request, "login.html")
