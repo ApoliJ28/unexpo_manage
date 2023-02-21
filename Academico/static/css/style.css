@@ -19,6 +19,11 @@ body{
     color:white;
     background-color: #f8eee757;
 }
+.nav-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 th,td{
     text-align: center;
     vertical-align: center;
@@ -30,3 +35,4 @@ th,td{
 .form button {
     width: 100%;
 }
+
