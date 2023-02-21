@@ -1,5 +1,32 @@
 body{
-    background: #606c88;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #3f4c6b, #606c88);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #3f4c6b, #606c88); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #f5f5f5;  /* fallback for old browsers */
+
+}
+/* Nav Bar */
+.nav-background {
+    background-color: #0F1626;
+    
+}
+.nav-background a{
+    color:#F8EEE7;
+    font-weight: bold;
+}
+.nav-background a:hover{
+    color:#66ebf7;
+    font-weight: bold;
+}
+.nav-btn{
+    color:white;
+    background-color: #f8eee757;
+}
+th,td{
+    text-align: center;
+    vertical-align: center;
+    
+}
+
+/* Formulario  */
+ 
+.form button {
+    width: 100%;
 }
