@@ -84,6 +84,3 @@ def inicio(request):
 def salir(request):
     logout(request)
     return redirect('/')
-
-
-
