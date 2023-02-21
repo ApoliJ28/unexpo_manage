@@ -3,27 +3,69 @@
 {% block title %}Edicion curso{% endblock %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-md-4 offset-md-4">
-            <h2>Gestion de cursos</h2>
-            <div class="card">
-                <div class="card-body">
-                    <form action="/editarCurso/" method="post">{% csrf_token %}
-                        <div class="form-label">
-                            <input type="text" id="txtCodigo" name="txtCodigo" value="{{curso.codigo}}" class="form-control" placeholder="Codigo" minlength="6" maxlength="6" required readonly>
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <h2 class="text-center">Editar la asignatura {{asignatura.nombre}}</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="{% url 'editar' %}" method="post">{% csrf_token %}
+                    <div class="form-label">
+                        <p class="text-muted">Codigo</p>
+                        <input type="text" id="codigo" name="codigo" value="{{asignatura.codigo}}" class="form-control"
+                            pminlength="5" maxlength="5" required readonly>
+                    </div>
+                    <div class="form-label">
+                        <p class="text-black">Nombre*</p>
+                        <input type="text" id="nombre" name="nombre" value="{{asignatura.nombre}}" class="form-control"
+                            maxlength="50" required>
+                    </div>
+                    <div class="form-label">
+                        <p class="text-black">Unidades*</p>
+                        <input type="number" id="num_unidades" name="num_unidades" value="{{asignatura.unidades}}"
+                            class="form-control" min="1" max="9" required>
+                    </div>
+                    <div class="form-label">
+                        <p class="text-black">Creditos requerido*</p>
+                        <input type="number" id="credito_requerido" name="credito_requerido"
+                            value="{{asignatura.credito_requerido}}" class="form-control" required>
+                    </div>
+                    <div class="form-label">
+                        <p class="text-black">Cantidad maxima de estudiantes*</p>
+                        <input type="number" id="cantidadmax_estudiantes" name="cantidadmax_estudiantes"
+                            value="{{asignatura.cantidadmax_estudiantes}}" class="form-control" required>
+                    </div>
+                    <div class="form-label">
+                        <p class="text-black">Cantidad estudiantes*</p>
+                        <input type="number" id="cantidad_estudiantes" name="cantidad_estudiantes"
+                            value="{{asignatura.cantidad_estudiantes}}" class="form-control" required>
+                    </div>
+                    <div class="form-label">
+                        <div class="mb-3">
+                            <div id="div_id_abierta" class="mb-3 form-check"> <input type="checkbox" name="abierta"
+                                    class="checkboxinput form-check-input" id="id_abierta" checked=""> <label
+                                    for="id_abierta" class="form-check-label">
+                                    <p class="text-black">Abierta*</p>
+                                </label> </div>
                         </div>
-                        <div class="form-label">
-                            <input type="text" id="txtNombre" name="txtNombre" value="{{curso.nombre}}" class="form-control" placeholder="Nombre" maxlength="50" required>
-                        </div>
-                        <div class="form-label">
-                            <input type="number" id="numCreditos" name="numCreditos" value="{{curso.creditos}}" class="form-control" min="1" max="9" value="1" required>
-                        </div>
-                        <div class="form-label">
-                            <button type="submit" class="btn btn-success form-control text-white">Guardar</button>
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                    <div class="form-label">
+                        <div id="div_id_carrera" class="mb-3"> <label for="id_carrera" class="form-label requiredField">
+                                <p class="text-black">Carrera*</p>
+                            </label> <select name="carrera" class="select form-select" required="" id="id_carrera"
+                                aria-selected="{{asignatura.carrera}}">
+                                <option value="">----------</option>
+                                <option value="Industrial">Ingieneria Industrial</option>
+                                <option value="Mecanica">Ingieneria Mecanica</option>
+                                <option value="Sistemas">Ingieneria Sistemas</option>
+                                <option value="General">General</option>
+                            </select> </div>
+                    </div>
+                    <div class="form-label">
+                        <button type="submit" class="btn btn-success form-control text-white">Guardar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}
