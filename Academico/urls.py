@@ -13,7 +13,8 @@ urlpatterns = [
     path('pensum/eliminacionCurso/<codigo>', login_required(views.eliminarCurso)),
     path('pensum/edicionCurso/<codigo>', login_required(views.edicionCurso), name="editarCurso"),
     path('editarCurso/', login_required(views.editarCurso), name="editar"),
-    path('listarUsuarios/', login_required(views.listadoUsuario.as_view()))
+    path('listarUsuarios/', login_required(views.listadoUsuario.as_view()), name = "listarUsuarios"),
+    path('registrarUsuario', login_required(views.registrarUsuario.as_view()), name= "registrarUsuario"),
 ]
 
 urlpatterns+= static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)

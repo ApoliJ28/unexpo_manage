@@ -1,0 +1,25 @@
+{%extends "./base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Registrar usuario
+{% endblock %}
+
+{% block body %}
+<div class="card">
+    <div class="card-header">
+        <strong class="card-title">Registro de usuarios</strong>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="card-footer">
+                <a href="{% url 'academico:listarUsuarios' %}" class="btn btn-danger">Cancelar</a>
+                <button class="btn btn-primary"  type="submit">Registrar</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

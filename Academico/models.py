@@ -20,30 +20,33 @@ class Asignatura(models.Model):
 
 
 class UsuarioManager(BaseUserManager):
-    def create_user(self, email, username, password = None):
+    def create_user(self, email, username,expediente , password = None):
         if not email:
             raise ValueError('El usuario debe tener un correo electronico')
-        user = Usuario(
+        user = self.model(
             username = username, 
-            email = self.normalize_email(email), 
+            email = self.normalize_email(email),
+            expediente = expediente, 
             )
         user.set_password(password)
         user.save()
         return user
     
-    def create_superuser(self, username, email, password):
+    def create_superuser(self, username, email, expediente, password):
         user = self.create_user(
             email,
             username = username,
-            password = password
+            password = password,
+            expediente = expediente,
         )
         user.usuario_administrador = True
         user.save()
         return user
 
 class Usuario(AbstractBaseUser):
+    id = models.AutoField(primary_key=True)
     username = models.CharField('Nombre de usuario', unique = True, max_length=30)
-    expediente = models.CharField('Expediente',primary_key=True, unique=True, max_length=50)
+    expediente = models.CharField('Expediente',unique = True, max_length=10)
     cedula = models.CharField('Cedula', unique=True, max_length=8, blank=True, null= True)
     creditos_aprobados = models.IntegerField('Creditos Aprobados',blank=True, null= True)
     fecha_inscripcion = models.DateTimeField('Fecha de inscripcion', blank=True, null= True)
@@ -61,12 +64,12 @@ class Usuario(AbstractBaseUser):
     objects = UsuarioManager()
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email']
+    REQUIRED_FIELDS = ['email','expediente']
 
     def __str__(self):
         return f'{self.nombres},{self.apellidos}'
     
-    def has_perm(self, perm, ob = None):
+    def has_perm(self, perm, obj = None):
         return True
     
     def has_module_perms(self, app_label):

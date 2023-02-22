@@ -1,0 +1,50 @@
+{%extends "./base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Listado de usuarios
+{% endblock %}
+
+{% block body %}
+{% if object_list %}
+<div class="card">
+    <div class="card-header">
+        <strong class="card-title">Listado de usuarios</strong>
+    </div>
+    <div class="table-stats order-table ov-h">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Username</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Expediente</th>
+                    <th>Administrador</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for usuario in object_list %}
+                <tr>
+                    <td>{{usuario.id}}</td>
+                    <td>{{usuario.username}}</td>
+                    <td>{{usuario.nombres}}</td>
+                    <td>{{usuario.apellidos}}</td>
+                    <td>{{usuario.expediente}}</td>
+                    <td>{{usuario.usuario_administrador}}</td>
+                    <td>
+                        <a href="#" class="btn btn-danger">Eliminar</a>
+                        <a href="#" class="btn btn-primary">Editar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+<h1>No existe registro de usuarios</h1>
+{% endif %}
+{% endblock %}
