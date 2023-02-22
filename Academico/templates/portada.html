@@ -1,0 +1,87 @@
+{%extends "./base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Pensum
+{% endblock %}
+
+{% block body %}
+
+
+<header>
+    <div class="contenedor head">
+        <h1 class="titulo portada">UNEXPO</h1>
+        <p class="copy">Vuela Alto</p>
+    </div>
+</header>
+<main>
+
+    <section class="servicies contenedor" id="servicio">
+        <h2 class="subtitulo">Profesionales</h2>
+        <div class="contenedor-servicio">
+
+            <img src="{% static  'img/instacia.jpg'  %}" alt="">
+            <div class="checklist-service">
+                <div class="service">
+                    <h3 class="n-service"><span class="number">1</span>Ingieneria en Sistemas</h3>
+                    <p>Los ingenieros que se desempeñan en este cargo brindan apoyo a las diferentes áreas de la empresa, mediante la capacitación al personal y soporte de las aplicaciones y sistemas de TI.</p>
+                    <p>Escribe, depura y actualiza el código fuente de un programa informático. También se encarga de la implementación de aplicaciones mediante un lenguaje de programación, que compilados pueda entender el hardware de un computador.</p>
+                </div>
+
+                <div class="service">
+                    <h3 class="n-service"><span class="number">2</span>Ingieneria Mecanica</h3>
+                    <p>Desarrolla, diseña, construye, prueba e inspecciona los sistemas y dispositivos mecánicos, como máquinas, herramientas y motores.</p>
+                </div>
+
+                <div class="service">
+                    <h3 class="n-service"><span class="number">3</span>Ingieneria Industrial</h3>
+                    <p>Responsables de realizar estudios, desarrollar y supervisar programas destinados a la optimización en el uso de equipos, recursos humanos</p>
+                </div>
+
+
+            </div>
+        </div>
+
+    </section>
+    <h2 class="subtitulo">Galeria</h2>
+    <section class="contenedor section galeria contenedor-galeria" id="portafolio">
+       
+        <img src="{% static 'img/galeria/1-image.jpg' %}" alt="" class="img-galeria sombra-fija">
+        <img src="{% static 'img/galeria/2-image.jpg' %}" alt="" class="img-galeria sombra-fija">
+        <img src="{% static 'img/galeria/3-image.jpg' %}" alt="" class="img-galeria sombra-fija">
+        <img src="{% static 'img/galeria/4-image.jpg' %}" alt="" class="img-galeria sombra-fija">
+        <img src="{% static 'img/galeria/5-image.jpg' %}" alt="" class="img-galeria sombra-fija">
+        <img src="{% static 'img/galeria/6-image.jpg' %}" alt="" class="img-galeria sombra-fija">
+    </section>
+
+ 
+
+
+    <section class="contenedor" id="expertos">
+        <h2 class="subtitulo">Expertos en:</h2>
+        <section class="experts">
+            <div class="cont-experts ">
+                <img src="{% static 'img/diseño.png' %}"  class="Vibrador alt="">
+                <h3 class="n-experts">Fiablidad</h3>
+            </div>
+
+            <div class="cont-experts ">
+                <img src="{% static 'img/engine.png' %}"  class="Vibrador alt="">
+                <h3 class="n-experts">Vanguardia</h3>
+            </div>
+            <div class="cont-experts ">
+                <img src="{% static 'img/web.png' %}" class="Vibrador" alt="">
+                <h3 class="n-experts">Investigación</h3>
+            </div>
+        </section>
+    </section>
+
+</main>
+
+<!-- <script src="{% static 'js/menu.js' %}"></script> -->
+<script src="{% static 'js/ligth.js' %}"></script>
+
+
+
+{% endblock %}

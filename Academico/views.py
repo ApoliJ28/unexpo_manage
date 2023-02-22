@@ -7,6 +7,11 @@ from .models import Asignatura
 from django.contrib import messages
 
 
+def portada(request):
+
+    return render(request, "portada.html")
+
+
 @login_required
 # Create your views here.
 def asignatura_admin(request):
@@ -84,6 +89,3 @@ def inicio(request):
 def salir(request):
     logout(request)
     return redirect('/')
-
-
-
