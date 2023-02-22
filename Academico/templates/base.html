@@ -25,7 +25,7 @@
       <a class="navbar-brand logo" href="#">
         <img  class="logo" src="{% static 'img/logo.png' %}" alt="Bootstrap" width="80" height="60">
       </a>
-      <a class="navbar-brand" href="{% url 'portada' %}">UNEXPO</a>
+      <a class="navbar-brand" href="{% url 'academico:portada' %}">UNEXPO</a>
       <button class="navbar-toggler nav-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -37,18 +37,18 @@
         {% if user.is_authenticated %}
       
           <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{% url 'cursos' %}">Cursos</a>
+              <a class="nav-link active" aria-current="page" href="{% url 'academico:cursos' %}">Cursos</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="{% url 'pensum' %}">Pensum</a>
+              <a class="nav-link" href="{% url 'academico:pensum' %}">Pensum</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="{% url 'salir' %}">Cerrar Sesion</a>
+              <a class="nav-link" href="{% url 'academico:salir' %}">Cerrar Sesion</a>
 
         </li>
           {% else %}
             <li class="nav-item">
-              <a class="nav-link active" aria-current="inicio" href="{% url 'cursos' %}">Iniciar Sesion</a>
+              <a class="nav-link active" aria-current="inicio" href="{% url 'academico:cursos' %}">Iniciar Sesion</a>
             </li>
         {% endif %}
       </ul>
@@ -70,7 +70,7 @@
 
   <footer class="py-3 my-2">
     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-      <li class="nav-item"><a href="{% url 'cursos' %}" class="nav-link px-2 ">Iniciar Sesion</a></li>
+      <li class="nav-item"><a href="{% url 'academico:cursos' %}" class="nav-link px-2 ">Iniciar Sesion</a></li>
       <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Contacto</a></li>
     </ul>
     <ul class="nav justify-content-center">

@@ -39,7 +39,7 @@ class FormularioUsuario(forms.ModelForm):
 
     class Meta:
         model = Usuario
-        fields = '__all__'
+        fields = ('email','username','nombres','apellidos')
         widgets = {
             'email' : forms.EmailInput(
                 attrs = {

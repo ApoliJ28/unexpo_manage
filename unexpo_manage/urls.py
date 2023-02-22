@@ -18,6 +18,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('Academico.urls')),
+    path('', include(('Academico.urls','academico'))),
     path('accounts/', include('django.contrib.auth.urls'), name="IniciarSeccion"),
 ]

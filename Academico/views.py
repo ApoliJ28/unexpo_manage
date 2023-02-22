@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse
-from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy
 from django.contrib.auth import logout
-from .forms import AsignaturaForm
-from .models import Asignatura
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView
+from .forms import AsignaturaForm, FormularioUsuario
+from .models import Asignatura, Usuario
 from django.contrib import messages
 
 
@@ -11,8 +11,6 @@ def portada(request):
 
     return render(request, "portada.html")
 
-
-@login_required
 # Create your views here.
 def asignatura_admin(request):
     form = AsignaturaForm()
@@ -34,8 +32,6 @@ def asignatura_admin(request):
 
     return render(request, "materia.html", {"asignaturas": asignaturas, "form": form})
 
-
-@login_required
 def eliminarCurso(request, codigo):
     asignatura = Asignatura.objects.get(codigo=codigo)
     asignatura.delete()
@@ -45,13 +41,10 @@ def eliminarCurso(request, codigo):
     return redirect("/pensum")
 
 
-@login_required
 def edicionCurso(request, codigo):
     asignatura = Asignatura.objects.get(codigo=codigo)
     return render(request, "edicion_materia.html", {"asignatura": asignatura})
 
-
-@login_required
 def editarCurso(request):
     codigo = request.POST['codigo']
     nombre = request.POST['nombre']
@@ -80,11 +73,21 @@ def editarCurso(request):
 
     return redirect("/pensum")
 
-
-@login_required
 def cursos(request):
     return render(request, "index.html")
 
 def salir(request):
     logout(request)
     return redirect('/')
+
+class listadoUsuario(ListView):
+    model = Usuario
+    template_name = 'listar_usuario.html'
+    def  get_queryset(self):
+        return self.Usuario.objects.filter(usuario_activo = True)
+
+class registrarUsuario(CreateView):
+    model = Usuario
+    form_class = FormularioUsuario
+    template_name = 'crear_usuario.html'
+    success_url = reverse_lazy('academico:listarUsuarios')

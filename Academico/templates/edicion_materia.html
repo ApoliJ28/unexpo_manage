@@ -9,7 +9,7 @@
         <h2 class="text-center">Editar la asignatura {{asignatura.nombre}}</h2>
         <div class="card">
             <div class="card-body">
-                <form action="{% url 'editar' %}" method="post">{% csrf_token %}
+                <form action="{% url 'academico:editar' %}" method="post">{% csrf_token %}
                     <div class="form-label">
                         <p class="text-muted">Codigo</p>
                         <input type="text" id="codigo" name="codigo" value="{{asignatura.codigo}}" class="form-control"
