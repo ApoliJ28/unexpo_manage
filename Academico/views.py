@@ -82,9 +82,8 @@ def editarCurso(request):
 
 
 @login_required
-def inicio(request):
+def cursos(request):
     return render(request, "index.html")
-
 
 def salir(request):
     logout(request)
