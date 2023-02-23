@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth import logout
-from django.views.generic import CreateView, ListView, UpdateView, DeleteView
+from django.views.generic import CreateView, ListView
 from .forms import AsignaturaForm, FormularioUsuario
 from .models import Asignatura, Usuario
 from django.contrib import messages
@@ -101,6 +101,13 @@ class registrarUsuario(CreateView):
                 nombres = form.cleaned_data['nombres'],
                 apellidos = form.cleaned_data['apellidos'],
                 expediente = form.cleaned_data['expediente'],
+                cedula = form.cleaned_data['cedula'],
+                creditos_aprobados = form.cleaned_data['creditos_aprobados'],
+                carrera = form.cleaned_data['carrera'],
+                semestre = form.cleaned_data['semestre'],
+                tipo_estudiante = form.cleaned_data['tipo_estudiante'],
+                imagen = form.cleaned_data['imagen'],
+                fecha_inscripcion = form.cleaned_data['fecha_inscripcion'],
             )
             nuevo_usuario.set_password(form.cleaned_data['password1'])
             nuevo_usuario.save()
@@ -122,10 +129,27 @@ def editarUsuario(request):
     expediente = request.POST['expediente']
     nombres = request.POST['nombres']
     apellidos = request.POST['apellidos']
+    username = request.POST['username']
+    email = request.POST['email']
+    cedula = request.POST['cedula']
+    creditos_aprobados = request.POST['creditos_aprobados']
+    carrera = request.POST['carrera']
+    semestre = request.POST['semestre']
+    tipo_estudiante = request.POST['tipo_estudiante']
+    fecha_inscripcion = request.POST['fecha_inscripcion']
+
 
     user = Usuario.objects.get(expediente=expediente)
     user.nombres = nombres
     user.apellidos = apellidos
+    user.username = username
+    user.email = email
+    user.cedula = cedula
+    user.creditos_aprobados = creditos_aprobados
+    user.carrera = carrera
+    user.semestre = semestre
+    user.tipo_estudiante = tipo_estudiante
+    user.fecha_inscripcion = fecha_inscripcion
     user.save()
 
     return redirect("academico:listarUsuarios")

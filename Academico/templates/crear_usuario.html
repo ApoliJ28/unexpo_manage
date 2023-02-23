@@ -6,6 +6,13 @@
 Registrar usuario
 {% endblock %}
 
+{% block estilos %} 
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;1,300;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/responsive.css">
+{% endblock %}
+
 {% block body %}
 <div class="card">
     <div class="card-header">
@@ -14,7 +21,9 @@ Registrar usuario
     <div class="card-body">
         <form method="POST">
             {% csrf_token %}
-            {{ form.as_p }}
+            <div class="form-group">
+                {{ form | crispy}}
+            </div>
             <div class="card-footer">
                 <a href="{% url 'academico:listarUsuarios' %}" class="btn btn-danger">Cancelar</a>
                 <button class="btn btn-primary"  type="submit">Registrar</button>

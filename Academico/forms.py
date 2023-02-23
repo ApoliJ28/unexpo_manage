@@ -18,6 +18,11 @@ class FormularioUsuario(forms.ModelForm):
             -password1: Contraseña
             -password2: Verificacion de Contraseña
     """
+    opciones_carrera = [('Industrial', 'Ingieneria Industrial'), ('Mecanica', 'Ingieneria Mecanica'),
+                        ('Sistemas', 'Ingieneria Sistemas'), ('General', 'General')]
+    opciones_semestres = [(1,'Semestre 1'),(2,'Semestre 2'),(3,'Semestre 3'),
+                        (4,'Semestre 4'),(5,'Semestre 5'),(6,'Semestre 6'),
+                        (7,'Semestre 7'),(8,'Semestre 8'),(9,'Semestre 9'),(10,'Semestre 10')]
 
     password1 = forms.CharField(label= 'Contraseña', widget= forms.PasswordInput(
         attrs = {
@@ -39,39 +44,10 @@ class FormularioUsuario(forms.ModelForm):
 
     class Meta:
         model = Usuario
-        fields = ('email','username','nombres','apellidos', 'expediente')
-        widgets = {
-            'email' : forms.EmailInput(
-                attrs = {
-                    'class' : 'form-control',
-                    'placeholder' : 'Correo Electronico'
-                }
-            ),
-            'nombres' : forms.TextInput(
-                attrs = {
-                    'class' : 'form-control',
-                    'placeholder' : 'Ingrese sus nombres'
-                }
-            ),
-            'apellidos' : forms.TextInput(
-                attrs = {
-                    'class' : 'form-control',
-                    'placeholder' : 'Ingrese sus apellidos'
-                }
-            ),
-            'username' : forms.TextInput(
-                attrs = {
-                    'class' : 'form-control',
-                    'placeholder' : 'Ingrese su usuario'
-                }
-            ),
-            'expediente' : forms.TextInput(
-                attrs = {
-                    'class' : 'form-control',
-                    'placeholder' : 'Ingrese su expediente'
-                }
-            )
-        }
+        fields = ('username','email','nombres','apellidos',
+                'expediente','cedula','creditos_aprobados','carrera',
+                'semestre','tipo_estudiante','imagen','fecha_inscripcion')
+        
     def clean_password2(self):
         """
             Esta es la validacion de contraseña
@@ -95,4 +71,3 @@ class FormularioUsuario(forms.ModelForm):
         if commit:
             user.save()
         return user
-

@@ -2,36 +2,109 @@
 
 {% block title %}Edicion curso{% endblock %}
 
+{% block estilos %} 
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;1,300;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/responsive.css">
+{% endblock %}
+
 {% block body %}
 <main class="container py-4">
-<div class="row">
-    <div class="col-md-4 offset-md-4">
-        <h2 class="text-center">Editar el usuario {{user.username}}</h2>
-        <div class="card">
-            <div class="card-body">
-                <form action="{% url 'academico:editarUsuario' %}" method="post">{% csrf_token %}
-                    <div class="form-label">
-                        <p class="text-muted">Expediente</p>
-                        <input type="text" id="expediente" name="expediente" value="{{user.expediente}}" class="form-control"
-                            pminlength="10" maxlength="10" required readonly>
-                    </div>
-                    <div class="form-label">
-                        <p class="text-black">Nombres*</p>
-                        <input type="text" id="nombres" name="nombres" value="{{user.nombres}}" class="form-control"
-                            maxlength="50" required>
-                    </div>
-                    <div class="form-label">
-                        <p class="text-black">Apellidos*</p>
-                        <input type="text" id="apellidos" name="apellidos" value="{{user.apellidos}}" class="form-control"
-                            maxlength="50" required>
-                    </div>
-                    <div class="form-label">
-                        <button type="submit" class="btn btn-success form-control text-white">Guardar</button>
-                    </div>
-                </form>
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <h2 class="text-center">Editar el usuario {{user.username}}</h2>
+            <div class="card">
+                <div class="card-body">
+                    <form action="{% url 'academico:editarUsuario' %}" method="post">{% csrf_token %}
+                        <div class="form-label">
+                            <p class="text-muted">Expediente</p>
+                            <input type="text" id="expediente" name="expediente" value="{{user.expediente}}"
+                                class="form-control" pminlength="10" maxlength="10" required readonly>
+                        </div>
+                        <div class="form-label">
+                            <p class="text-black">Usuario*</p>
+                            <input type="text" id="username" name="username" value="{{user.username}}"
+                                class="form-control" maxlength="50" required>
+                        </div>
+                        <div class="form-label">
+                            <p class="text-black">Email*</p>
+                            <input type="email" id="email" name="email" value="{{user.email}}" class="form-control"
+                                maxlength="50" required>
+                        </div>
+                        <div class="form-label">
+                            <p class="text-black">Nombres*</p>
+                            <input type="text" id="nombres" name="nombres" value="{{user.nombres}}" class="form-control"
+                                maxlength="50" required>
+                        </div>
+                        <div class="form-label">
+                            <p class="text-black">Apellidos*</p>
+                            <input type="text" id="apellidos" name="apellidos" value="{{user.apellidos}}"
+                                class="form-control" maxlength="50" required>
+                        </div>
+                        <div class="form-label">
+                            <p class="text-black">Cedula*</p>
+                            <input type="text" id="cedula" name="cedula" value="{{user.cedula}}" class="form-control"
+                                minlength="8" maxlength="8" required>
+                        </div>
+                        <div class="form-label">
+                            <p class="text-black">Creditos aprobados*</p>
+                            <input type="Number" id="creditos_aprobados" name="creditos_aprobados"
+                                value="{{user.creditos_aprobados}}" class="form-control" required>
+                        </div>
+                        <div id="div_id_carrera" class="mb-3"> <label for="id_carrera" class="form-label">
+                                Carrera
+                            </label> <select name="carrera" class="select form-select" id="id_carrera">
+                                <option value="" selected="">---------</option>
+                                <option value="Industrial">Ingieneria Industrial</option>
+                                <option value="Mecanica">Ingieneria Mecanica</option>
+                                <option value="Sistemas">Ingieneria Sistemas</option>
+                                <option value="General">General</option>
+                            </select>
+                        </div>
+                        <div id="div_id_semestre" class="mb-3"> <label for="id_semestre" class="form-label">
+                                Semestre
+                            </label> <select name="semestre" class="select form-select" id="id_semestre">
+                                <option value="" selected="">---------</option>
+                                <option value="1">Semestre 1</option>
+                                <option value="2">Semestre 2</option>
+                                <option value="3">Semestre 3</option>
+                                <option value="4">Semestre 4</option>
+                                <option value="5">Semestre 5</option>
+                                <option value="6">Semestre 6</option>
+                                <option value="7">Semestre 7</option>
+                                <option value="8">Semestre 8</option>
+                                <option value="9">Semestre 9</option>
+                                <option value="10">Semestre 10</option>
+                            </select>
+                        </div>
+                        <div id="div_id_tipo_estudiante" class="mb-3"> <label for="id_tipo_estudiante"
+                                class="form-label">
+                                Tipo de estudiante
+                            </label> <select name="tipo_estudiante" class="select form-select" id="id_tipo_estudiante">
+                                <option value="" selected="">---------</option>
+                                <option value="C">Completo</option>
+                                <option value="P">Parcial</option>
+                            </select>
+                        </div>
+                        <div id="div_id_fecha_inscripcion" class="mb-3"> <label for="id_fecha_inscripcion"
+                                class="form-label">
+                                Fecha de inscripcion
+                            </label> 
+                            <label for="id_fecha_inscripcion"
+                                class="form-label">Año-Mes-Dia Hora:Minutos:Segundos
+                            </label>
+                            <input type="text" name="fecha_inscripcion" class="datetimeinput form-control"
+                            id="id_fecha_inscripcion"> 
+                            </div>
+                        <div class="form-label">
+                            <button type="submit" class="btn btn-success form-control text-white">Guardar</button>
+                            <a href="{% url 'academico:listarUsuarios' %}" class="btn btn-danger form-control my-3">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </main>
 {% endblock %}
