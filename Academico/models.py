@@ -52,25 +52,25 @@ class Usuario(AbstractBaseUser):
         'Nombre de usuario', unique=True, max_length=30)
     expediente = models.CharField('Expediente', unique=True, max_length=10)
     cedula = models.CharField('Cedula', unique=True,
-                              max_length=8, blank=True, null=True)
+                            max_length=8, blank=True, null=True)
     creditos_aprobados = models.IntegerField(
         'Creditos Aprobados', blank=True, null=True)
     fecha_inscripcion = models.DateTimeField(
         'Fecha de inscripcion', blank=True, null=True)
     opciones_carrera = [('Industrial', 'Ingieneria Industrial'), ('Mecanica', 'Ingieneria Mecanica'),
-                        ('Sistemas', 'Ingieneria Sistemas'), ('General', 'General')]
+                        ('Sistemas', 'Ingieneria Sistemas')]
     carrera = models.CharField(
         'Carrera', choices=opciones_carrera, max_length=15, blank=True, null=True)
     opciones_tipo_estudiante = [('C', 'Completo'), ('P', 'Parcial')]
     tipo_estudiante = models.CharField(
         'Tipo de estudiante', choices=opciones_tipo_estudiante, max_length=15, blank=True, null=True)
     opciones_semestres = [(1, 'Semestre 1'), (2, 'Semestre 2'), (3, 'Semestre 3'),
-                          (4, 'Semestre 4'), (5, 'Semestre 5'), (6, 'Semestre 6'),
-                          (7, 'Semestre 7'), (8, 'Semestre 8'), (9, 'Semestre 9'), (10, 'Semestre 10')]
+                        (4, 'Semestre 4'), (5, 'Semestre 5'), (6, 'Semestre 6'),
+                        (7, 'Semestre 7'), (8, 'Semestre 8'), (9, 'Semestre 9'), (10, 'Semestre 10')]
     semestre = models.IntegerField(
         choices=opciones_semestres, blank=True, null=True)
     email = models.EmailField('Correo electronico',
-                              max_length=100, unique=True)
+                            max_length=100, unique=True)
     nombres = models.CharField(
         'Nombres', max_length=100, blank=True, null=True)
     apellidos = models.CharField(
