@@ -55,6 +55,10 @@ class Usuario(AbstractBaseUser):
     carrera = models.CharField('Carrera',choices=opciones_carrera, max_length=15, blank=True, null= True)
     opciones_tipo_estudiante = [('C','Completo'),('P','Parcial')]
     tipo_estudiante = models.CharField('Tipo de estudiante', choices=opciones_tipo_estudiante, max_length=15, blank=True, null= True)
+    opciones_semestres = [(1,'Semestre 1'),(2,'Semestre 2'),(3,'Semestre 3'),
+                        (4,'Semestre 4'),(5,'Semestre 5'),(6,'Semestre 6'),
+                        (7,'Semestre 79'),(8,'Semestre 8'),(9,'Semestre 9'),(10,'Semestre 10')]
+    semestre = models.IntegerField(choices=opciones_semestres, blank=True, null= True)
     email = models.EmailField('Correo electronico', max_length=100, unique=True)
     nombres = models.CharField('Nombres', max_length=100, blank=True, null= True)
     apellidos = models.CharField('apellidos', max_length=100, blank=True, null= True)

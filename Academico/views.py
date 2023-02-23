@@ -24,7 +24,7 @@ def asignatura_admin(request):
                 form.save()
                 # Datos correctos
                 messages.success(request, "Curso Registrado!")
-                return redirect('/pensum')
+                return redirect('academico:pensum')
         except ValueError:
             return render(request, '/pensum', {"asignaturas": asignaturas, "form": form, 'error': 'Ingresa valores correctamente'})
 
@@ -38,7 +38,7 @@ def eliminarCurso(request, codigo):
 
     messages.success(request, "Curso Eliminado!")
 
-    return redirect("/pensum")
+    return redirect("academico:pensum")
 
 
 def edicionCurso(request, codigo):
@@ -71,7 +71,7 @@ def editarCurso(request):
 
     messages.success(request, "Curso Actualizado!")
 
-    return redirect("/pensum")
+    return redirect("academico:pensum")
 
 def cursos(request):
     return render(request, "index.html")
@@ -91,3 +91,41 @@ class registrarUsuario(CreateView):
     form_class = FormularioUsuario
     template_name = 'crear_usuario.html'
     success_url = reverse_lazy('academico:listarUsuarios')
+
+    def post(self,request,*args,**kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            nuevo_usuario = Usuario(
+                email = form.cleaned_data['email'],
+                username = form.cleaned_data['username'],
+                nombres = form.cleaned_data['nombres'],
+                apellidos = form.cleaned_data['apellidos'],
+                expediente = form.cleaned_data['expediente'],
+            )
+            nuevo_usuario.set_password(form.cleaned_data['password1'])
+            nuevo_usuario.save()
+            return redirect('academico:listarUsuarios')
+        else:
+            return render(request,self.template_name,{'form':form})
+
+def eliminarUsuario(request, expediente):
+    user = Usuario.objects.get(expediente=expediente)
+    user.delete()
+
+    return redirect("academico:listarUsuarios")
+
+def edicionUsuario(request, expediente):
+    user = Usuario.objects.get(expediente=expediente)
+    return render(request, "edicion_usuario.html", {"user": user})
+
+def editarUsuario(request):
+    expediente = request.POST['expediente']
+    nombres = request.POST['nombres']
+    apellidos = request.POST['apellidos']
+
+    user = Usuario.objects.get(expediente=expediente)
+    user.nombres = nombres
+    user.apellidos = apellidos
+    user.save()
+
+    return redirect("academico:listarUsuarios")

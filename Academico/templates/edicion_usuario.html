@@ -1,0 +1,37 @@
+{% extends "./base.html" %}
+
+{% block title %}Edicion curso{% endblock %}
+
+{% block body %}
+<main class="container py-4">
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <h2 class="text-center">Editar el usuario {{user.username}}</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="{% url 'academico:editarUsuario' %}" method="post">{% csrf_token %}
+                    <div class="form-label">
+                        <p class="text-muted">Expediente</p>
+                        <input type="text" id="expediente" name="expediente" value="{{user.expediente}}" class="form-control"
+                            pminlength="10" maxlength="10" required readonly>
+                    </div>
+                    <div class="form-label">
+                        <p class="text-black">Nombres*</p>
+                        <input type="text" id="nombres" name="nombres" value="{{user.nombres}}" class="form-control"
+                            maxlength="50" required>
+                    </div>
+                    <div class="form-label">
+                        <p class="text-black">Apellidos*</p>
+                        <input type="text" id="apellidos" name="apellidos" value="{{user.apellidos}}" class="form-control"
+                            maxlength="50" required>
+                    </div>
+                    <div class="form-label">
+                        <button type="submit" class="btn btn-success form-control text-white">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</main>
+{% endblock %}

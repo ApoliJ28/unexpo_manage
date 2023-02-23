@@ -16,7 +16,7 @@ Listado de usuarios
         <table class="table">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th>ID</th>
                     <th>Username</th>
                     <th>Nombres</th>
                     <th>Apellidos</th>
@@ -35,8 +35,8 @@ Listado de usuarios
                     <td>{{usuario.expediente}}</td>
                     <td>{{usuario.usuario_administrador}}</td>
                     <td>
-                        <a href="#" class="btn btn-danger">Eliminar</a>
-                        <a href="#" class="btn btn-primary">Editar</a>
+                        <a href="eliminarUsuario/{{usuario.expediente}}" class="btn btn-danger">Eliminar</a>
+                        <a href="edicionUsuario/{{usuario.expediente}}" class="btn btn-primary">Editar</a>
                     </td>
                 </tr>
                 {% endfor %}
