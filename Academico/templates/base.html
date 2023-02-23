@@ -39,6 +39,10 @@
           <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="{% url 'academico:cursos' %}">Cursos</a>
           </li>
+
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'academico:inscripciones' %}">Inscribete</a>
+        </li>
           {% if request.user.is_staff %}
           <li class="nav-item">
               <a class="nav-link" href="{% url 'academico:pensum' %}">Pensum</a>

@@ -1,0 +1,112 @@
+{%extends "./base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Inscripciones
+{% endblock %}
+
+{% block estilos %} 
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;1,300;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/responsive.css">
+{% endblock %}
+
+{% block body %}
+<div class="container py-4">
+<section class="row">
+    <!-- Seccion de listado de Cursos -->
+    <div class="col-md-6 col-sm-12 col-lg-7 col-xl-7">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ message }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <h2>Asignatura Ofertadas</h2>
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr class="text-center">
+                            
+                            <th>Codigo</th>
+                            <th>Nombre</th>
+                            <th>Unidades</th>
+                            <th>Alumnos Inscritos</th>
+                            <th>Especialidad</th>
+                            <th>Semestre</th>
+                            <th >Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    
+                       
+                        <tr class="text-center">
+                            <td>Campo</td>
+                            <td>Campo</td>
+                            <td>Campo</td>
+                            <td>Campo</td>
+                            <td>Campo</td>
+                            <td>Campo</td>
+                            <td><a href="" class="btn btn-success">Agregar</a></td>
+                
+                        </tr>
+                
+    
+    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .form button {
+            width: 100%;
+        }
+    </style>
+
+
+    <!-- Seccion del Formulario -->
+    <div class="col-md-6 col-sm-12 col-lg-5 col-xl-5">
+        <h1 class="card-title">Semestre</h1>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr class="text-center">
+                        
+                        <th>Codigo</th>
+                        <th>Nombre</th>
+                        <th>Creditos</th>
+                        <th>Especialidad</th>
+                        <th >Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                   
+                    <tr class="text-center">
+                        <td>Campo</td>
+                        <td>Campo</td>
+                        <td>Campo</td>
+                        <td>Campo</td>
+                        
+                        <td><a href=""
+                                class="btn btn-danger btn-eliminacion">Eliminar</a>
+                        </td>
+                    </tr>
+                 
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+</div>
+
+{% endblock %}
