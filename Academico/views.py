@@ -167,5 +167,5 @@ def editarUsuario(request):
 
 
 def inscripciones(request):
-
-    return render(request, "inscripciones.html")
+    asignaturas = Asignatura.objects.all()
+    return render(request, "inscripciones.html", {"asignaturas": asignaturas})

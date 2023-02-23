@@ -38,24 +38,21 @@ Inscripciones
                             <th>Unidades</th>
                             <th>Alumnos Inscritos</th>
                             <th>Especialidad</th>
-                            <th>Semestre</th>
+                            <
                             <th >Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
-    
-                       
+                    {% for asignatura in asignaturas %}
                         <tr class="text-center">
-                            <td>Campo</td>
-                            <td>Campo</td>
-                            <td>Campo</td>
-                            <td>Campo</td>
-                            <td>Campo</td>
-                            <td>Campo</td>
+                            <td>{{asignatura.codigo}}</td>
+                            <td>{{asignatura.nombre}}</td>
+                            <td>{{asignatura.unidades}}</td>
+                            <td>{{asignatura.cantidad_estudiantes}}</td>
+                            <td>{{asignatura.carrera}}</td>
                             <td><a href="" class="btn btn-success">Agregar</a></td>
-                
                         </tr>
-                
+                    {% endfor %}
     
     
                     </tbody>
@@ -99,8 +96,14 @@ Inscripciones
                                 class="btn btn-danger btn-eliminacion">Eliminar</a>
                         </td>
                     </tr>
-                 
-
+                    {% if reques.session.asignatura.items %}
+                        <tr class="text-center">
+                            <td colspan="6" style="text-align : center">
+                                <a href="" class="btn btn-success">Inscribir</a>
+                                
+                            </td>
+                        </tr>
+                    {% endif %}
 
                 </tbody>
             </table>
