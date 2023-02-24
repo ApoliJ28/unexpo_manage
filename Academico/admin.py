@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Asignatura, Usuario, LineaPedido, Pedido
+from .models import Asignatura, Usuario
 
 # Register your models here.
 
@@ -13,5 +13,3 @@ class FiltroAsignatura(admin.ModelAdmin):
 admin.site.register(Asignatura, FiltroAsignatura)
 
 admin.site.register(Usuario)
-admin.site.register(Pedido)
-admin.site.register(LineaPedido)

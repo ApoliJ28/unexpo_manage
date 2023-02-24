@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-from django.db.models import F, Sum, FloatField
 
 
 class Asignatura(models.Model):
@@ -87,7 +86,7 @@ class Usuario(AbstractBaseUser):
     REQUIRED_FIELDS = ['email', 'expediente']
 
     def __str__(self):
-        return f'{self.nombres},{self.apellidos}'
+        return f'{self.nombres} {self.apellidos}'
 
     def has_perm(self, perm, obj=None):
         return True
@@ -98,41 +97,3 @@ class Usuario(AbstractBaseUser):
     @property
     def is_staff(self):
         return self.usuario_administrador
-
-
-class Pedido(models.Model):
-    user = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.id
-
-    @property
-    def total(self):
-        return self.lineapedido_set.aggregate(
-            unidadestotales=Sum(F("cantidad"), outpu_field=FloatField())
-
-        )["total"]
-
-    class Meta:
-        db_table = 'pedidos'
-        verbose_name = 'pedido'
-        verbose_name_plural = 'pedidos'
-        ordering = ['id']
-
-
-class LineaPedido(models.Model):
-    user = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-
-    codigo = models.ForeignKey(Asignatura, on_delete=models.CASCADE)
-    cantidad = models.IntegerField(default=1)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f'{self.user} inscribio {self.asignatura_id.nombre}'
-
-    class Meta:
-        db_table = 'lineapedidos'
-        verbose_name = 'lineapedido'
-        verbose_name_plural = 'lineapedidos'
-        ordering = ['id']
