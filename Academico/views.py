@@ -117,6 +117,7 @@ class registrarUsuario(CreateView):
                 tipo_estudiante=form.cleaned_data['tipo_estudiante'],
                 imagen=form.cleaned_data['imagen'],
                 fecha_inscripcion=form.cleaned_data['fecha_inscripcion'],
+                hora_inscripcion = form.cleaned_data['hora_inscripcion'],
             )
             nuevo_usuario.set_password(form.cleaned_data['password1'])
             nuevo_usuario.save()
@@ -149,6 +150,7 @@ def editarUsuario(request):
     semestre = request.POST['semestre']
     tipo_estudiante = request.POST['tipo_estudiante']
     fecha_inscripcion = request.POST['fecha_inscripcion']
+    hora_inscripcion = request.POST['hora_inscripcion']
 
     user = Usuario.objects.get(expediente=expediente)
     user.nombres = nombres
@@ -161,6 +163,7 @@ def editarUsuario(request):
     user.semestre = semestre
     user.tipo_estudiante = tipo_estudiante
     user.fecha_inscripcion = fecha_inscripcion
+    user.hora_inscripcion = hora_inscripcion
     user.save()
 
     return redirect("academico:listarUsuarios")

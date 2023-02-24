@@ -46,8 +46,10 @@ class FormularioUsuario(forms.ModelForm):
         model = Usuario
         fields = ('username','email','nombres','apellidos',
                 'expediente','cedula','creditos_aprobados','carrera',
-                'semestre','tipo_estudiante','imagen','fecha_inscripcion')
-        
+                'semestre','tipo_estudiante','imagen','fecha_inscripcion', 'hora_inscripcion')
+        widgets = {'fecha_inscripcion' : forms.DateInput(attrs = {'type' : 'date'}),
+                'hora_inscripcion' : forms.DateInput(attrs = {'type' : 'time'})}
+
     def clean_password2(self):
         """
             Esta es la validacion de contraseña

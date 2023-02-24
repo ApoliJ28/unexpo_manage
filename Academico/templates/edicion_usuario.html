@@ -2,11 +2,11 @@
 
 {% block title %}Edicion curso{% endblock %}
 
-{% block estilos %} 
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;1,300;1,600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/responsive.css">
+{% block estilos %}
+<link rel="stylesheet" href="css/style.css">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;1,300;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/responsive.css">
 {% endblock %}
 
 {% block body %}
@@ -90,16 +90,19 @@
                         <div id="div_id_fecha_inscripcion" class="mb-3"> <label for="id_fecha_inscripcion"
                                 class="form-label">
                                 Fecha de inscripcion
-                            </label> 
-                            <label for="id_fecha_inscripcion"
-                                class="form-label">Año-Mes-Dia Hora:Minutos:Segundos
-                            </label>
-                            <input type="text" name="fecha_inscripcion" class="datetimeinput form-control"
-                            id="id_fecha_inscripcion"> 
-                            </div>
+                            </label> <input type="date" name="fecha_inscripcion" class="dateinput form-control"
+                                id="id_fecha_inscripcion">
+                        </div>
+                        <div id="div_id_hora_inscripcion" class="mb-3"> <label for="id_hora_inscripcion"
+                                class="form-label">
+                                Hora de inscripcion
+                            </label> <input type="time" name="hora_inscripcion" class="dateinput form-control"
+                                id="id_hora_inscripcion"> 
+                        </div>
                         <div class="form-label">
                             <button type="submit" class="btn btn-success form-control text-white">Guardar</button>
-                            <a href="{% url 'academico:listarUsuarios' %}" class="btn btn-danger form-control my-3">Cancelar</a>
+                            <a href="{% url 'academico:listarUsuarios' %}"
+                                class="btn btn-danger form-control my-3">Cancelar</a>
                         </div>
                     </form>
                 </div>

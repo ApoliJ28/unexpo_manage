@@ -55,8 +55,10 @@ class Usuario(AbstractBaseUser):
                             max_length=8, blank=True, null=True)
     creditos_aprobados = models.IntegerField(
         'Creditos Aprobados', blank=True, null=True)
-    fecha_inscripcion = models.DateTimeField(
+    fecha_inscripcion = models.DateField(
         'Fecha de inscripcion', blank=True, null=True)
+    hora_inscripcion = models.TimeField(
+        'Hora de inscripcion', blank=True, null=True)
     opciones_carrera = [('Industrial', 'Ingieneria Industrial'), ('Mecanica', 'Ingieneria Mecanica'),
                         ('Sistemas', 'Ingieneria Sistemas')]
     carrera = models.CharField(
