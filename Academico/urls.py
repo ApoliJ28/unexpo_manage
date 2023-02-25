@@ -19,6 +19,9 @@ urlpatterns = [
      path('listarUsuarios/edicionUsuario/<expediente>', login_required(views.edicionUsuario), name="edicionUsuario"),
      path('listarUsuarios/editarUsuario/', login_required(views.editarUsuario), name="editarUsuario"),
      path('inscripciones/', login_required(views.inscripciones), name="inscripciones"),
+     path('inscripciones/agregarMateria/<codigo>', login_required(views.agregar_materia), name="agregar"),
+     path('inscripciones/eliminarMateria/<codigo>', login_required(views.eliminar_materia), name="eliminar"),
+     path('inscripciones/limpiarCarrito', login_required(views.limpiar_carrito), name="limpiar"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

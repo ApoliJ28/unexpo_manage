@@ -5,6 +5,8 @@ from django.views.generic import CreateView, ListView
 from .forms import AsignaturaForm, FormularioUsuario
 from .models import Asignatura, Usuario
 from django.contrib import messages
+from .carrito import Carrito
+
 
 
 def portada(request):
@@ -117,7 +119,7 @@ class registrarUsuario(CreateView):
                 tipo_estudiante=form.cleaned_data['tipo_estudiante'],
                 imagen=form.cleaned_data['imagen'],
                 fecha_inscripcion=form.cleaned_data['fecha_inscripcion'],
-                hora_inscripcion = form.cleaned_data['hora_inscripcion'],
+                hora_inscripcion=form.cleaned_data['hora_inscripcion'],
             )
             nuevo_usuario.set_password(form.cleaned_data['password1'])
             nuevo_usuario.save()
@@ -135,7 +137,7 @@ def eliminarUsuario(request, expediente):
 
 def edicionUsuario(request, expediente):
     user = Usuario.objects.get(expediente=expediente)
-    return render(request, "edicion_usuario.html", {"user": user})
+    return render(request,  "edicion_usuario.html", {"user": user})
 
 
 def editarUsuario(request):
@@ -172,3 +174,23 @@ def editarUsuario(request):
 def inscripciones(request):
     asignaturas = Asignatura.objects.all()
     return render(request, "inscripciones.html", {"asignaturas": asignaturas})
+
+
+def agregar_materia(request, codigo):
+    carrito = Carrito(request)
+    asignatura = Asignatura.objects.get(codigo=codigo)
+    carrito.agregar(asignatura)
+    return redirect("academico:inscripciones")
+
+
+def eliminar_materia(request, codigo):
+    carrito = Carrito(request)
+    asignatura = Asignatura.objects.get(codigo=codigo)
+    carrito.eliminar(asignatura)
+    return redirect("academico:inscripciones")
+
+
+def limpiar_carrito(request):
+    carrito = Carrito(request)
+    carrito.limpiar()
+    return redirect("academico:inscripciones")
