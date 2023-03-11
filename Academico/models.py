@@ -2,13 +2,37 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 
-class Asignatura(models.Model):
+class Carrera(models.Model):
+    codigo_c = models.CharField(primary_key=True,  max_length=5)
+    nombre = models.CharField(max_length=100)
+    costo = models.FloatField()
+
+    def __str__(self):
+        return f'{self.nombre} {self.costo}'
+
+
+class Departamento(models.Model):
+    codigo_dep = models.CharField(primary_key=True,  max_length=5)
+    nombre = models.CharField(max_length=100)
+    carrera_ids = models.ManyToManyField(Carrera, "Carreras")
+
+    def __str__(self):
+        return f'{self.nombre}'
+
+
+class Materia(models.Model):
     codigo = models.CharField(primary_key=True,  max_length=5)
     nombre = models.CharField(max_length=100)
-    unidades = models.PositiveIntegerField()
-    credito_requerido = models.IntegerField()
-    cantidadmax_estudiantes = models.IntegerField()
-    cantidad_estudiantes = models.IntegerField()
+    creditos = models.PositiveIntegerField()
+    creditos_requerido = models.IntegerField()
+    departamento_id = models.ForeignKey(Departamento, on_delete=models.CASCADE)
+    opciones_semestres = [(1, 'Semestre 1'), (2, 'Semestre 2'), (3, 'Semestre 3'),
+                          (4, 'Semestre 4'), (5, 'Semestre 5'), (6, 'Semestre 6'),
+                          (7, 'Semestre 7'), (8, 'Semestre 8'), (9, 'Semestre 9'), (10, 'Semestre 10')]
+    semestre = models.IntegerField(
+        choices=opciones_semestres, blank=True, null=True)
+    # cantidadmax_estudiantes = models.IntegerField()
+    # cantidad_estudiantes = models.IntegerField()
     abierta = models.BooleanField(default=True)
     opciones_carrera = [('Industrial', 'Ingieneria Industrial'), ('Mecanica', 'Ingieneria Mecanica'),
                         ('Sistemas', 'Ingieneria Sistemas'), ('General', 'General')]
@@ -51,27 +75,24 @@ class Usuario(AbstractBaseUser):
         'Nombre de usuario', unique=True, max_length=30)
     expediente = models.CharField('Expediente', unique=True, max_length=10)
     cedula = models.CharField('Cedula', unique=True,
-                            max_length=8, blank=True, null=True)
+                              max_length=8, blank=True, null=True)
     creditos_aprobados = models.IntegerField(
         'Creditos Aprobados', blank=True, null=True)
+    carrera_id = models.ForeignKey(
+        Carrera, null=True, on_delete=models.CASCADE)
     fecha_inscripcion = models.DateField(
         'Fecha de inscripcion', blank=True, null=True)
-    hora_inscripcion = models.TimeField(
-        'Hora de inscripcion', blank=True, null=True)
-    opciones_carrera = [('Industrial', 'Ingieneria Industrial'), ('Mecanica', 'Ingieneria Mecanica'),
-                        ('Sistemas', 'Ingieneria Sistemas')]
-    carrera = models.CharField(
-        'Carrera', choices=opciones_carrera, max_length=15, blank=True, null=True)
+
     opciones_tipo_estudiante = [('C', 'Completo'), ('P', 'Parcial')]
     tipo_estudiante = models.CharField(
         'Tipo de estudiante', choices=opciones_tipo_estudiante, max_length=15, blank=True, null=True)
     opciones_semestres = [(1, 'Semestre 1'), (2, 'Semestre 2'), (3, 'Semestre 3'),
-                        (4, 'Semestre 4'), (5, 'Semestre 5'), (6, 'Semestre 6'),
-                        (7, 'Semestre 7'), (8, 'Semestre 8'), (9, 'Semestre 9'), (10, 'Semestre 10')]
+                          (4, 'Semestre 4'), (5, 'Semestre 5'), (6, 'Semestre 6'),
+                          (7, 'Semestre 7'), (8, 'Semestre 8'), (9, 'Semestre 9'), (10, 'Semestre 10')]
     semestre = models.IntegerField(
         choices=opciones_semestres, blank=True, null=True)
     email = models.EmailField('Correo electronico',
-                            max_length=100, unique=True)
+                              max_length=100, unique=True)
     nombres = models.CharField(
         'Nombres', max_length=100, blank=True, null=True)
     apellidos = models.CharField(
@@ -97,3 +118,31 @@ class Usuario(AbstractBaseUser):
     @property
     def is_staff(self):
         return self.usuario_administrador
+
+
+class RegistroPago(models.Model):
+    id = models.AutoField(primary_key=True)
+    fecha_pago = models.DateTimeField()
+    estudiante_id = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    registro_inscripcion = models.IntegerField()
+    cantidad_pago = models.FloatField()
+
+    def __str__(self):
+        return f'Registro: {self.id} Estudiante: {self.estudiante_id} Inscripcion: {self.registro_inscripcion}'
+
+
+class RegistroInscripcion(models.Model):
+    id = models.AutoField(primary_key=True)
+    fecha_apertura = models.DateTimeField()
+    estudiante_id = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    materias_ids = models.ManyToManyField(Materia, blank=True)
+    fecha_inscripcion = models.DateTimeField(null=True, blank=True)
+    pago_id = models.OneToOneField(
+        RegistroPago, on_delete=models.CASCADE, null=True, blank=True)
+    estados = [("pendiente", "Pendiente"),
+               ("pago", "Estado de pago"), ("inscrito", "Inscrito")]
+    estado = models.CharField(
+        choices=estados, max_length=15, default="pendiente")
+
+    def __str__(self):
+        return f'Registro: {self.id} Estudiante: {self.estudiante_id} Materias: {self.materias_ids}'

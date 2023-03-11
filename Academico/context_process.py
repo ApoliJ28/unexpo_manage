@@ -3,4 +3,4 @@ def total(request):
     if request.user.is_authenticated and request.session.get("carrito"):
         for key, value in request.session["carrito"].items():
             total_creditos += int(value["unidades"])
-    return {"total_creditos" : total_creditos}
+    return {"total_creditos": total_creditos}

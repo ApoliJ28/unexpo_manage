@@ -1,0 +1,48 @@
+{%extends "./index.html" %}
+
+{% block title %}
+Cursos de carreras
+{% endblock %}
+
+{% block body %}
+    <!-- Seccion del Formulario -->
+    <div class="col-md-6 col-sm-12 col-lg-8 col-xl-8">
+        <h1>Materias por semestre de {{carrera.nombre}}</h1>
+        {% for semestre, materias in materias_semestre.items %}
+        <h2>{{semestre}}</h2>
+        {% if materias %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr class="text-center">
+                        <th>Codigo</th>
+                        <th>Nombre</th>
+                        <th>Creditos</th>
+                        <th>C. Requeridos</th>
+                        <th>Departamento</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for materia in materias %}
+                    <tr class="text-center">
+                        <td>{{materia.codigo}}</td>
+                        <td>{{materia.nombre}}</td>
+                        <td>{{materia.creditos}}</td>
+                        <td>{{materia.creditos_requerido}}</td>
+                        <td>{{materia.departamento_id}}</td>
+                        <!-- <td><a href="edicionCurso/{{asignatura.codigo}}" class="btn btn-info">Editar</a></td>
+                        <td><a href="eliminacionCurso/{{asignatura.codigo}}"
+                                class="btn btn-danger btn-eliminacion">Eliminar</a>
+                        </td> -->
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p>No hay materias en este semestre</p>
+        {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}

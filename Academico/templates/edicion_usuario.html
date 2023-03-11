@@ -52,32 +52,8 @@
                             <input type="Number" id="creditos_aprobados" name="creditos_aprobados"
                                 value="{{user.creditos_aprobados}}" class="form-control" required>
                         </div>
-                        <div id="div_id_carrera" class="mb-3"> <label for="id_carrera" class="form-label">
-                                Carrera
-                            </label> <select name="carrera" class="select form-select" id="id_carrera">
-                                <option value="" selected="">---------</option>
-                                <option value="Industrial">Ingieneria Industrial</option>
-                                <option value="Mecanica">Ingieneria Mecanica</option>
-                                <option value="Sistemas">Ingieneria Sistemas</option>
-                                <option value="General">General</option>
-                            </select>
-                        </div>
-                        <div id="div_id_semestre" class="mb-3"> <label for="id_semestre" class="form-label">
-                                Semestre
-                            </label> <select name="semestre" class="select form-select" id="id_semestre">
-                                <option value="" selected="">---------</option>
-                                <option value="1">Semestre 1</option>
-                                <option value="2">Semestre 2</option>
-                                <option value="3">Semestre 3</option>
-                                <option value="4">Semestre 4</option>
-                                <option value="5">Semestre 5</option>
-                                <option value="6">Semestre 6</option>
-                                <option value="7">Semestre 7</option>
-                                <option value="8">Semestre 8</option>
-                                <option value="9">Semestre 9</option>
-                                <option value="10">Semestre 10</option>
-                            </select>
-                        </div>
+
+
                         <div id="div_id_tipo_estudiante" class="mb-3"> <label for="id_tipo_estudiante"
                                 class="form-label">
                                 Tipo de estudiante
@@ -87,18 +63,8 @@
                                 <option value="P">Parcial</option>
                             </select>
                         </div>
-                        <div id="div_id_fecha_inscripcion" class="mb-3"> <label for="id_fecha_inscripcion"
-                                class="form-label">
-                                Fecha de inscripcion
-                            </label> <input type="date" name="fecha_inscripcion" class="dateinput form-control"
-                                id="id_fecha_inscripcion">
-                        </div>
-                        <div id="div_id_hora_inscripcion" class="mb-3"> <label for="id_hora_inscripcion"
-                                class="form-label">
-                                Hora de inscripcion
-                            </label> <input type="time" name="hora_inscripcion" class="dateinput form-control"
-                                id="id_hora_inscripcion"> 
-                        </div>
+
+
                         <div class="form-label">
                             <button type="submit" class="btn btn-success form-control text-white">Guardar</button>
                             <a href="{% url 'academico:listarUsuarios' %}"

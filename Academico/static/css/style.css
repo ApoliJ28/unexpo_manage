@@ -312,6 +312,14 @@ transform: translate(10px,-10px);
 .sombra-fija:hover:before{
 	transform: translateY(5px);
 }
+
+.estado{
+    font-family: "tecno";
+    font-size: 5px;
+    margin: 0px auto;
+}
+
+
 h1.portada{
     animation: entrada 5s 1;
     transition: .5s all ease;

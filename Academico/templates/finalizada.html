@@ -1,0 +1,64 @@
+{%extends "./base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Inscripcion Pago
+{% endblock %}
+
+{% block estilos %} 
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;1,300;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/responsive.css">
+{% endblock %}
+
+{% block body %}
+{% if registros_inscripcion %}
+{% for registro in registros_inscripcion %}
+<p>Estado del registro de inscripcion: <strong style="color: green;">{{registro.estado}}</strong></p>
+<div class="container">
+    <div class="progress bg-info" role="progressbar" aria-label="Basic example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="height: 30px;">
+        <div class="progress-bar bg-info" style="width: 100%; height: 30px;">Pendiente</div>
+        <div class="progress-bar bg-info" style="width: 100%; height: 30px;">Por pagar</div>
+        <div class="progress-bar bg-success" style="width: 100%; height: 30px;">Inscrito</div>
+    </div>
+</div>
+<h2 style="text-align: center; margin-top: 20px;">Felicidades, estas inscrito</h2>
+<h3 style="text-align: center; margin-top: 20px;">Materias inscritas:</h3>
+<div class="container table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr class="text-center">
+                <th>Codigo</th>
+                <th>Nombre</th>
+                <th>Creditos</th>
+                <th>Departamento</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for materia in materias %}
+            <tr class="text-center">
+                <td>{{materia.codigo}}</td>
+                <td>{{materia.nombre}}</td>
+                <td>{{materia.creditos}}</td>
+                <td>{{materia.departamento_id}}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td></td>
+                <td></td>
+                <td>{{unidades_totales}}</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <p style="font-size: 50;">Total pagado: <b style="color: green;">{{pago_total}}$</b></p>
+    <p><a href="{% url 'academico:volver_pago' %}" class="btn btn-info">Volver a pago</a></p>
+</div>
+{% endfor %}
+{% else %}
+<p>No hay registro de inscripcion</p>
+{% endif %}
+{% endblock %}

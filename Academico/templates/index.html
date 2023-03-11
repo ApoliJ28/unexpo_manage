@@ -9,6 +9,36 @@ Cursos
 {% block body %}
 <div class="container py-4"></div>
 <h1>
-    Bienvenido {{user.username}} iniciaste seccion
+    Bienvenido {{user.username}} iniciaste sesión
 </h1>
+<div class="card container">
+    <div class="card-body">
+        <h2>Tus materias</h2>
+        {% if registro_inscripcion %}
+        <table class="table table-striped">
+            <thead>
+                <tr class="text-center">
+                    <th>Codigo</th>
+                    <th>Nombre</th>
+                    <th>Unidades</th>
+                    <th>Departamento</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for materia in materias %}
+                <tr class="text-center">
+                    <td>{{materia.codigo}}</td>
+                    <td>{{materia.nombre}}</td>
+                    <td>{{materia.creditos}}</td>
+                    <td>{{materia.departamento_id}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No tienes registro de inscripcion</p>
+        {% endif %}
+    </div>
+</div>
+
 {% endblock %}
