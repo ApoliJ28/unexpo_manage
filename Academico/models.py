@@ -133,7 +133,10 @@ class RegistroPago(models.Model):
 
 class RegistroInscripcion(models.Model):
     id = models.AutoField(primary_key=True)
-    fecha_apertura = models.DateTimeField()
+    fecha_apertura = models.DateField(
+        'Fecha de apertura de inscripcion', blank=True, null=True)
+    hora_apertura = models.TimeField(
+        'hora de apertura de inscripcion', blank=True, null=True)
     estudiante_id = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     materias_ids = models.ManyToManyField(Materia, blank=True)
     fecha_inscripcion = models.DateTimeField(null=True, blank=True)

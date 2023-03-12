@@ -97,7 +97,8 @@ class RegistroInscripcionForm(ModelForm):
     class Meta:
         model = RegistroInscripcion
         # Creamos los campos a  traves del formulario
-        fields = ('fecha_apertura', 'estudiante_id')
+        fields = ('fecha_apertura', 'hora_apertura', 'estudiante_id')
         widgets = {
             'fecha_apertura': forms.DateInput(attrs={'type': 'date'}),
+            'hora_apertura': forms.DateInput(attrs={'type': 'time'})
         }
