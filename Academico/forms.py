@@ -100,5 +100,5 @@ class RegistroInscripcionForm(ModelForm):
         fields = ('fecha_apertura', 'hora_apertura', 'estudiante_id')
         widgets = {
             'fecha_apertura': forms.DateInput(attrs={'type': 'date'}),
-            'hora_apertura': forms.DateInput(attrs={'type': 'time'})
+            'hora_apertura': forms.TimeInput(attrs={'type': 'time'})
         }

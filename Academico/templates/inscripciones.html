@@ -83,8 +83,8 @@ Inscripciones
 
                     {% endfor %}
                     </div>
-        
-             
+
+
             </div>
         </div>
 
@@ -118,7 +118,7 @@ Inscripciones
                                 {% else %}
                                 <tr>
                                     <th colspan="6"><div class="alert alert-danger text-center"><p>Sin materias</p></div></th>
-                                    
+
                                 </tr>
                                 {% endif %}
                                 <tr>
@@ -139,7 +139,7 @@ Inscripciones
 </div>
 {% else %}
 <p>Todavia no te toca inscribirte</p>
-<p>Tu inscripcion abre el {{fecha_apertura}}</p>
+<p>Tu inscripcion abre el {{fecha_apertura}} a las {{hora_apertura}}</p>
 {% endif %}
 {% else %}
 <p style="color: #c47917;">No se encontro registro de inscripcion para este estudiante</p>
