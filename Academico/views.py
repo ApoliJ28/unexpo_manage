@@ -1,6 +1,6 @@
 import pytz
 from Academico.context_process import total
-from datetime import datetime
+from datetime import date, datetime, time
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth import logout
@@ -260,9 +260,11 @@ def inscripciones(request):
         for registro in registros_inscripcion:
             estado = registro.estado
             fecha_apertura = registro.fecha_apertura
+            hora_apertura = registro.hora_apertura
         if estado == "pendiente":
-            fecha_actual = datetime.now(pytz.timezone('America/Caracas'))
-            if fecha_actual >= fecha_apertura:
+            fecha_actual = date.today()
+            hora_actual = datetime.now(pytz.timezone('America/Caracas')).time()
+            if fecha_actual >= fecha_apertura and hora_actual >= hora_apertura:
                 # Obtengo la tabla de las carreras
                 codigo = request.user.carrera_id.codigo_c
                 carrera = Carrera.objects.get(codigo_c=codigo)
@@ -305,7 +307,8 @@ def inscripciones(request):
                 context = {
                     "registro_inscripcion": registros_inscripcion,
                     "turno_abierto": False,
-                    "fecha_apertura": fecha_apertura
+                    "fecha_apertura": fecha_apertura,
+                    "hora_apertura": hora_apertura
                 }
                 return render(request, "inscripciones.html", context)
         elif estado == "pago":
@@ -360,7 +363,10 @@ def estado_pago(request):
                 registro.save()
 
                 materias = registro.materias_ids.all()
-                unidades_totales = total(request)["total_creditos"]
+                # unidades_totales = total(request)["total_creditos"]
+                unidades_totales = 0
+                for materia in materias:
+                    unidades_totales += materia.creditos
                 pago_total = unidades_totales*3
 
                 context = {
@@ -372,7 +378,10 @@ def estado_pago(request):
                 return render(request, "pago_views.html", context)
             elif estado == "pago":
                 materias = registro.materias_ids.all()
-                unidades_totales = total(request)["total_creditos"]
+                # unidades_totales = total(request)["total_creditos"]
+                unidades_totales = 0
+                for materia in materias:
+                    unidades_totales += materia.creditos
                 pago_total = unidades_totales*3
                 context = {
                     "registros_inscripcion": registros_inscripcion,
@@ -398,7 +407,10 @@ def estado_inscrito(request):
             if estado == "pago":
                 registro.estado = "inscrito"
                 materias = registro.materias_ids.all()
-                unidades_totales = total(request)["total_creditos"]
+                # unidades_totales = total(request)["total_creditos"]
+                unidades_totales = 0
+                for materia in materias:
+                    unidades_totales += materia.creditos
                 pago_total = unidades_totales*3
                 pago_rec = RegistroPago.objects.create(
                     fecha_pago=datetime.now(pytz.timezone('America/Caracas')),
@@ -418,7 +430,10 @@ def estado_inscrito(request):
 
             elif estado == "inscrito":
                 materias = registro.materias_ids.all()
-                unidades_totales = total(request)["total_creditos"]
+                # unidades_totales = total(request)["total_creditos"]
+                unidades_totales = 0
+                for materia in materias:
+                    unidades_totales += materia.creditos
                 pago_total = unidades_totales*3
                 context = {
                     "registros_inscripcion": registros_inscripcion,
