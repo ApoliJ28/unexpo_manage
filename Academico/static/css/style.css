@@ -9,6 +9,11 @@ body{
     src: url(../fonts/SandyKids.otf);
     src:url(../fonts/SandyKidsRegular.ttf) format("truetype");
 }
+@font-face {
+    font-family: "defy";
+    src: url(../fonts/KGDefyingGravity.ttf);
+    src:url(../fonts/KGDefyingGravityBounce.ttf) format("truetype");
+}
 @font-face{
     font-family:"tecno";
     src:url(../fonts/TechnoBoard.ttf) format("truetype");
@@ -102,6 +107,13 @@ th,td{
     font-weight: 100;
     font-size: 2em;
     font-family: "over";
+}
+.copy1{
+    font-family: "arial";
+    color:green;
+    font-size: 1.4em;
+    font-weight: bold;
+    text-shadow: 1px 0px 0px black;
 }
 /*Nuestro Servicio*/
 .subtitulo{
@@ -226,9 +238,20 @@ th,td{
     width: 100%;
     font-weight: 490;
 }
+
+.title1{
+    font-family: "defy";
+    font-size: 7em;
+    color :62671;
+}
+.copy1{
+    text-align: center;
+    font-size: 2.2em;
+}
 /*Footer*/
 footer{
-    background-color: #bdbdbdc7;
+    background-color: #00293c;
+    color :white;
     padding-bottom: 0.1px;
 
 }
@@ -243,8 +266,13 @@ footer{
 }
 .contact-us{
     width: 40%;
-    color: azure;
     
+    
+}
+.text{
+    color: white;
+    font-weight: bold;
+    font-size: 1.5em;
 }
 .brand{
     font-weight: 500;
@@ -264,13 +292,13 @@ footer{
     margin-left: 20px;
     width: 60px;
     height: 60px;
-    border: 1px solid #fff;
+   
     color: rgb(58, 111, 158);
     text-align: center;
     transition: all .4s ease-in-out;
 }
 .social-media-icon:hover{
-    background-color: #fff;
+    border: 1px solid #fff;
     color: #9f80e7;
 }
 .social-media-icon i{
@@ -289,7 +317,10 @@ footer{
 	animation:5s Vibrador infinite ;
 
 }
-
+.title1{
+    animation: entrada 8s infinite;
+    text-align: center;
+}
 
 @keyframes Vibrador {
 10%,30%,50%,70%,90%{

@@ -82,22 +82,22 @@
 
   <!-- FOOTER -->
 
-  <footer class="py-3 my-2">
+  <footer class="py-3  footer">
     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
       {% if not request.user.is_authenticated %}
-      <li class="nav-item"><a href="{% url 'academico:cursos' %}" class="nav-link px-2 ">Iniciar Sesion</a></li>
+
       {% endif %}
-      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Contacto</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2  text">Contacto</a></li>
     </ul>
     <ul class="nav justify-content-center">
       <li class="nav-item">
-        <p class="text-center text-muted"> <span id="currentYear"></span>&copy; UNEXPO</p>
+        <p class="text-center "> <span id="currentYear"></span>&copy; UNEXPO</p>
       </li>
     </ul>
     <div class="social-media">
-      <a href="" class="social-media-icon"><i class='bx bxl-linkedin' ></i></a>
-      <a href="" class="social-media-icon"><i class='bx bxl-github' ></i></a>
-      <a href="" class="social-media-icon"><i class='bx bxl-instagram' ></i></a>
+      <a href="" class="social-media-icon"><img  class="img-fluid " src="{% static  'img/facebook.png'  %}" alt=""></a>
+      <a href="" class="social-media-icon"><img  class="img-fluid " src="{% static  'img/insta.png'  %}" alt=""></a>
+       <a href="" class="social-media-icon"><img  class="img-fluid " src="{% static  'img/twitter.png'  %}" alt=""></a>
   </div>
   </footer>
 
