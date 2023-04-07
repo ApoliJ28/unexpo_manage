@@ -264,7 +264,7 @@ def inscripciones(request):
         if estado == "pendiente":
             fecha_actual = date.today()
             hora_actual = datetime.now(pytz.timezone('America/Caracas')).time()
-            if fecha_actual >= fecha_apertura and hora_actual >= hora_apertura:
+            if (fecha_actual == fecha_apertura and hora_actual >= hora_apertura) or fecha_actual > fecha_apertura:
                 # Obtengo la tabla de las carreras
                 codigo = request.user.carrera_id.codigo_c
                 carrera = Carrera.objects.get(codigo_c=codigo)
