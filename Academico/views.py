@@ -5,10 +5,10 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth import logout
 from django.views.generic import CreateView, ListView
+from .context_process import total
 from .forms import AsignaturaForm, FormularioUsuario, RegistroInscripcionForm
 from .models import Materia, Usuario, Departamento, Carrera, RegistroInscripcion, RegistroPago
 from django.contrib import messages
-from .carrito import Carrito
 
 
 def portada(request):
@@ -248,7 +248,7 @@ def editarUsuario(request):
 
 
 def inscripciones(request):
-    # Obtengo el id del estiduante
+    # Obtengo el id del estudiante
     estudiante = request.user.id
 
     # Obtengo los registros de inscripcion del estudiante
@@ -258,63 +258,62 @@ def inscripciones(request):
     # Si tiene inscripciones en pendiente, traeme el registro
     if registros_inscripcion:
         for registro in registros_inscripcion:
-            estado = registro.estado
             fecha_apertura = registro.fecha_apertura
             hora_apertura = registro.hora_apertura
-        if estado == "pendiente":
-            fecha_actual = date.today()
-            hora_actual = datetime.now(pytz.timezone('America/Caracas')).time()
-            if (fecha_actual == fecha_apertura and hora_actual >= hora_apertura) or fecha_actual > fecha_apertura:
-                # Obtengo la tabla de las carreras
-                codigo = request.user.carrera_id.codigo_c
-                carrera = Carrera.objects.get(codigo_c=codigo)
+            if registro.estado == "pendiente":
+                fecha_actual = date.today()
+                hora_actual = datetime.now(pytz.timezone('America/Caracas')).time()
+                if (fecha_actual == fecha_apertura and hora_actual >= hora_apertura) or fecha_actual > fecha_apertura:
+                    # Obtengo la tabla de las carreras
+                    codigo = request.user.carrera_id.codigo_c
+                    carrera = Carrera.objects.get(codigo_c=codigo)
 
-                # Obtengo los semestres de la clase Materia
-                semestres = Materia().opciones_semestres
-                semestre_dict = {}
+                    # Obtengo los semestres de la clase Materia
+                    semestres = Materia().opciones_semestres
+                    semestre_dict = {}
 
-                if carrera:
-                    # Si existe la carrera traeme los departamentos de esa carrera
-                    departamentos = Departamento.objects.filter(
-                        carrera_ids=codigo)
+                    if carrera:
+                        # Si existe la carrera traeme los departamentos de esa carrera
+                        departamentos = Departamento.objects.filter(
+                            carrera_ids=codigo)
 
-                    # Guarda en un diccionario las materias por semestre
-                    for semestre in semestres:
-                        semestre_dict[f"{semestre[1]}"] = []
-                        for departamento in departamentos:
-                            dpto_code = departamento.codigo_dep
-                            materias = Materia.objects.filter(
-                                departamento_id=dpto_code, semestre=semestre[0])
-                            for materia in materias:
-                                materias_inscritas = RegistroInscripcion.objects.filter(
-                                    materias_ids=materia)
-                                if len(materias_inscritas) >= 2:
-                                    materia.abierta = False
-                                else:
-                                    materia.abierta = True
+                        # Guarda en un diccionario las materias por semestre
+                        for semestre in semestres:
+                            semestre_dict[f"{semestre[1]}"] = []
+                            for departamento in departamentos:
+                                dpto_code = departamento.codigo_dep
+                                materias = Materia.objects.filter(
+                                    departamento_id=dpto_code, semestre=semestre[0])
+                                for materia in materias:
+                                    materias_inscritas = RegistroInscripcion.objects.filter(
+                                        materias_ids=materia)
+                                    if len(materias_inscritas) >= 2:
+                                        materia.abierta = False
+                                    else:
+                                        materia.abierta = True
 
-                                semestre_dict[f"{semestre[1]}"].append(materia)
+                                    semestre_dict[f"{semestre[1]}"].append(materia)
 
+                        context = {
+                            "registro_inscripcion": registros_inscripcion,
+                            "carrera": carrera,
+                            "materias_semestre": semestre_dict,
+                            "inscripcion_estado": registro.estado,
+                            "turno_abierto": True
+                        }
+                        return render(request, "inscripciones.html", context)
+                else:
                     context = {
                         "registro_inscripcion": registros_inscripcion,
-                        "carrera": carrera,
-                        "materias_semestre": semestre_dict,
-                        "inscripcion_estado": estado,
-                        "turno_abierto": True
+                        "turno_abierto": False,
+                        "fecha_apertura": fecha_apertura,
+                        "hora_apertura": hora_apertura
                     }
                     return render(request, "inscripciones.html", context)
+            elif registro.estado == "pago":
+                return redirect("academico:estado_pago")
             else:
-                context = {
-                    "registro_inscripcion": registros_inscripcion,
-                    "turno_abierto": False,
-                    "fecha_apertura": fecha_apertura,
-                    "hora_apertura": hora_apertura
-                }
-                return render(request, "inscripciones.html", context)
-        elif estado == "pago":
-            return redirect("academico:estado_pago")
-        else:
-            return redirect("academico:estado_inscrito")
+                return redirect("academico:estado_inscrito")
     else:
         context = {
             "registro_inscripcion": False,
@@ -323,28 +322,65 @@ def inscripciones(request):
 
 
 def agregar_materia(request, codigo):
-    carrito = Carrito(request)
+    # Obtengo el id del estudiante
+    estudiante = request.user.id
+
+    # Obtengo los registros de inscripcion del estudiante
+    registros_inscripcion = RegistroInscripcion.objects.filter(
+        estudiante_id=estudiante)
+
+    # Obtengo la asignatura que se agregara
     asignatura = Materia.objects.get(codigo=codigo)
-    carrito.agregar(asignatura)
+
+    # Si tiene inscripciones en pendiente, traeme el registro
+    if registros_inscripcion:
+        for registro in registros_inscripcion:
+            if registro.estado == "pendiente":
+                registro.materias_ids.add(asignatura)
+
     return redirect("academico:inscripciones")
 
 
 def eliminar_materia(request, codigo):
-    carrito = Carrito(request)
+    # Obtengo el id del estudiante
+    estudiante = request.user.id
+
+    # Obtengo los registros de inscripcion del estudiante
+    registros_inscripcion = RegistroInscripcion.objects.filter(
+        estudiante_id=estudiante
+    )
+
+    # Obtengo la asignatura que se agregara
     asignatura = Materia.objects.get(codigo=codigo)
-    carrito.eliminar(asignatura)
+
+    # Si tiene inscripciones en pendiente, traeme el registro
+    if registros_inscripcion:
+        for registro in registros_inscripcion:
+            if registro.estado == "pendiente":
+                registro.materias_ids.remove(asignatura)
     return redirect("academico:inscripciones")
 
 
-def limpiar_carrito(request):
-    carrito = Carrito(request)
-    carrito.limpiar()
+def limpiar_materias(request):
+    # Obtengo el id del estudiante
+    estudiante = request.user.id
+
+    # Obtengo los registros de inscripcion del estudiante
+    registros_inscripcion = RegistroInscripcion.objects.filter(
+        estudiante_id=estudiante
+    )
+
+    # Si tiene inscripciones en pendiente, traeme el registro
+    if registros_inscripcion:
+        for registro in registros_inscripcion:
+            if registro.estado == "pendiente":
+                registro.materias_ids.clear()
     return redirect("academico:inscripciones")
 
 
 # Accion para guardar los datos en la tabla de inscripciones y pasar al estado de pago
 def estado_pago(request):
-    carrito = Carrito(request).carrito
+    # carrito = Carrito(request).carrito
     estudiante_id = request.user.id
     registros_inscripcion = RegistroInscripcion.objects.filter(
         estudiante_id=estudiante_id)
@@ -352,42 +388,21 @@ def estado_pago(request):
     if registros_inscripcion:
         for registro in registros_inscripcion:
             estado = registro.estado
+            materias = registro.materias_ids.all()
 
             if estado == "pendiente":
-                materias_ids = [materia_id for materia_id in carrito.keys()]
-                materias = Materia.objects.filter(codigo__in=materias_ids)
-                registro.materias_ids.set(materias)
                 registro.estado = "pago"
-                registro.fecha_inscripcion = datetime.now(
-                    pytz.timezone('America/Caracas'))
                 registro.save()
-
-                materias = registro.materias_ids.all()
-                # unidades_totales = total(request)["total_creditos"]
-                unidades_totales = 0
-                for materia in materias:
-                    unidades_totales += materia.creditos
-                pago_total = unidades_totales*3
 
                 context = {
                     "registros_inscripcion": registros_inscripcion,
-                    "materias": materias,
-                    "unidades_totales": unidades_totales,
-                    "pago_total": pago_total
+                    "materias": materias
                 }
                 return render(request, "pago_views.html", context)
             elif estado == "pago":
-                materias = registro.materias_ids.all()
-                # unidades_totales = total(request)["total_creditos"]
-                unidades_totales = 0
-                for materia in materias:
-                    unidades_totales += materia.creditos
-                pago_total = unidades_totales*3
                 context = {
                     "registros_inscripcion": registros_inscripcion,
-                    "materias": materias,
-                    "unidades_totales": unidades_totales,
-                    "pago_total": pago_total
+                    "materias": materias
                 }
                 return render(request, "pago_views.html", context)
     else:
@@ -403,43 +418,31 @@ def estado_inscrito(request):
     if registros_inscripcion:
         for registro in registros_inscripcion:
             estado = registro.estado
+            materias = registro.materias_ids.all()
 
             if estado == "pago":
                 registro.estado = "inscrito"
-                materias = registro.materias_ids.all()
-                # unidades_totales = total(request)["total_creditos"]
-                unidades_totales = 0
-                for materia in materias:
-                    unidades_totales += materia.creditos
-                pago_total = unidades_totales*3
+                pago_total = total(request)
                 pago_rec = RegistroPago.objects.create(
                     fecha_pago=datetime.now(pytz.timezone('America/Caracas')),
                     estudiante_id=request.user,
                     registro_inscripcion=registro.id,
-                    cantidad_pago=pago_total
+                    cantidad_pago=pago_total["pago_total"]
                 )
                 registro.pago_id = pago_rec
+                registro.fecha_inscripcion = datetime.now(
+                    pytz.timezone('America/Caracas'))
                 registro.save()
                 context = {
                     "registros_inscripcion": registros_inscripcion,
-                    "materias": materias,
-                    "unidades_totales": unidades_totales,
-                    "pago_total": pago_total
+                    "materias": materias
                 }
                 return render(request, "finalizada.html", context)
 
             elif estado == "inscrito":
-                materias = registro.materias_ids.all()
-                # unidades_totales = total(request)["total_creditos"]
-                unidades_totales = 0
-                for materia in materias:
-                    unidades_totales += materia.creditos
-                pago_total = unidades_totales*3
                 context = {
                     "registros_inscripcion": registros_inscripcion,
-                    "materias": materias,
-                    "unidades_totales": unidades_totales,
-                    "pago_total": pago_total
+                    "materias": materias
                 }
                 return render(request, "finalizada.html", context)
 
