@@ -10,7 +10,16 @@ Listado de usuarios
 {% if object_list %}
 <div class="card">
     <div class="card-header">
-        <strong class="card-title">Listado de usuarios</strong>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                    <strong class="card-title">Listado de usuarios</strong>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                    <a href="registro_usuario" class="btn btn-primary">Registro de inscripcion de usuario</a>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="table-stats order-table ov-h">
         <table class="table">
@@ -37,12 +46,14 @@ Listado de usuarios
                     <td>
                         <a href="eliminarUsuario/{{usuario.expediente}}" class="btn btn-danger">Eliminar</a>
                         <a href="edicionUsuario/{{usuario.expediente}}" class="btn btn-primary">Editar</a>
-                        <a href="registro_usuario" class="btn btn-primary">Registrar</a>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+    </div>
+    <div class="card-footer">
+        
     </div>
 </div>
 {% else %}
