@@ -12,7 +12,7 @@
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <!-- CUSTOM BOOSTRAP -->
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}"/>
+  <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}" />
   {% block estilos %} {% endblock %}
 </head>
 
@@ -23,7 +23,7 @@
 
     <div class="container-fluid nav-center">
       <a class="navbar-brand logo" href="#">
-        <img  class="logo" src="{% static 'img/logo.png' %}" alt="Bootstrap" width="80" height="60">
+        <img class="logo" src="{% static 'img/logo.png' %}" alt="Bootstrap" width="80" height="60">
       </a>
       <a class="navbar-brand" href="{% url 'academico:portada' %}">UNEXPO</a>
       <button class="navbar-toggler nav-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -33,39 +33,41 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
 
-        <!-- Si el usuario esta autenticado muestra esto -->
-        {% if request.user.is_authenticated %}
-      
+          <!-- Si el usuario esta autenticado muestra esto -->
+          {% if request.user.is_authenticated %}
+
           <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{% url 'academico:cursos' %}">Cursos</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'academico:cursos' %}">Cursos</a>
           </li>
 
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{% url 'academico:inscripciones' %}">Inscribete</a>
-        </li>
+          </li>
           {% if request.user.is_staff %}
           <li class="nav-item">
-              <a class="nav-link" href="{% url 'academico:pensum' %}">Pensum</a>
+            <a class="nav-link" href="{% url 'academico:pensum' %}">Pensum</a>
           </li>
           <li class="nav-item">
             <div class="btn-group" role="group">
               <a class="nav-link" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Usuarios</a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item text-black" href="{% url 'academico:listarUsuarios' %}">Lista de usuarios</a></li>
-                <li><a class="dropdown-item text-black" href="{% url 'academico:registrarUsuario' %}">Registro de usuarios</a></li>
+                <li><a class="dropdown-item text-black" href="{% url 'academico:listarUsuarios' %}">Lista de
+                    usuarios</a></li>
+                <li><a class="dropdown-item text-black" href="{% url 'academico:registrarUsuario' %}">Registro de
+                    usuarios</a></li>
               </ul>
             </div>
           </li>
           {% endif %}
           <li class="nav-item">
-              <a class="nav-link" href="{% url 'academico:salir' %}">Cerrar Sesion</a>
+            <a class="nav-link" href="{% url 'academico:salir' %}">Cerrar Sesion</a>
           </li>
           {% else %}
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="inicio" href="{% url 'academico:cursos' %}">Iniciar Sesion</a>
-            </li>
-        {% endif %}
-      </ul>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="inicio" href="{% url 'academico:cursos' %}">Iniciar Sesion</a>
+          </li>
+          {% endif %}
+        </ul>
       </div>
     </div>
 
@@ -75,10 +77,9 @@
   <!-- BODY -->
 
 
-    {% block body %}
+  {% block body %}
 
-    {% endblock %}
-  
+  {% endblock %}
 
   <!-- FOOTER -->
 
@@ -95,10 +96,10 @@
       </li>
     </ul>
     <div class="social-media">
-      <a href="" class="social-media-icon"><img  class="img-fluid " src="{% static  'img/facebook.png'  %}" alt=""></a>
-      <a href="" class="social-media-icon"><img  class="img-fluid " src="{% static  'img/insta.png'  %}" alt=""></a>
-       <a href="" class="social-media-icon"><img  class="img-fluid " src="{% static  'img/twitter.png'  %}" alt=""></a>
-  </div>
+      <a href="" class="social-media-icon"><img class="img-fluid " src="{% static  'img/facebook.png'  %}" alt=""></a>
+      <a href="" class="social-media-icon"><img class="img-fluid " src="{% static  'img/insta.png'  %}" alt=""></a>
+      <a href="" class="social-media-icon"><img class="img-fluid " src="{% static  'img/twitter.png'  %}" alt=""></a>
+    </div>
   </footer>
 
   <!-- BOOSTRAP -->
