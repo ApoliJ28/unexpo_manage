@@ -422,16 +422,6 @@ def estado_inscrito(request):
 
             if estado == "pago":
                 registro.estado = "inscrito"
-                pago_total = total(request)
-                pago_rec = RegistroPago.objects.create(
-                    fecha_pago=datetime.now(pytz.timezone('America/Caracas')),
-                    estudiante_id=request.user,
-                    registro_inscripcion=registro.id,
-                    cantidad_pago=pago_total["pago_total"]
-                )
-                registro.pago_id = pago_rec
-                registro.fecha_inscripcion = datetime.now(
-                    pytz.timezone('America/Caracas'))
                 registro.save()
                 context = {
                     "registros_inscripcion": registros_inscripcion,
@@ -472,56 +462,112 @@ def volver_pago(request):
 
     return redirect("academico:estado_pago")
 
+
 def registro_pago(request):
+    estudiante_id = request.user.id
+    registros_inscripcion = RegistroInscripcion.objects.filter(
+        estudiante_id=estudiante_id)
+
     metodo = request.POST['metodo']
-    #usuario = request.user
 
     if metodo == "Pago movil":
         cedula = request.POST['cedula']
         tlf = request.POST['tlf']
         banco = request.POST['banco']
         num_referencia = request.POST['numReferncia']
-        monto = request.POST['monto']
 
-        #Aqui se guarda los datos en el modelo... Ejemplo
-
-        RegistroPago.objects.create(cedula=cedula, tlf=tlf, banco=banco, 
-                num_referencia=num_referencia, cantidad_pago=monto)
-        
+        # Aqui se guarda los datos en el modelo... Ejemplo
+        if registros_inscripcion:
+            for registro in registros_inscripcion:
+                pago_total = total(request)
+                pago_rec = RegistroPago.objects.create(
+                    fecha_pago=datetime.now(pytz.timezone('America/Caracas')),
+                    estudiante_id=request.user,
+                    registro_inscripcion=registro.id,
+                    metodo_pago=metodo,
+                    remitente_cedula=cedula,
+                    tlf=tlf,
+                    banco=banco,
+                    num_referencia=num_referencia,
+                    cantidad_pago=pago_total["pago_total"]
+                )
+                registro.pago_id = pago_rec
+                registro.fecha_inscripcion = datetime.now(
+                    pytz.timezone('America/Caracas'))
+                registro.save()
 
     elif metodo == "Efectivo":
         moneda = request.POST['moneda']
-        monto = request.POST['monto']
 
-        #Aqui se guarda los datos en el modelo... Ejemplo
-
-        RegistroPago.objects.create(moneda=moneda, cantidad_pago=monto)
+        # Aqui se guarda los datos en el modelo... Ejemplo
+        if registros_inscripcion:
+            for registro in registros_inscripcion:
+                pago_total = total(request)
+                pago_rec = RegistroPago.objects.create(
+                    fecha_pago=datetime.now(pytz.timezone('America/Caracas')),
+                    estudiante_id=request.user,
+                    registro_inscripcion=registro.id,
+                    metodo_pago=metodo,
+                    moneda=moneda,
+                    cantidad_pago=pago_total["pago_total"]
+                )
+                registro.pago_id = pago_rec
+                registro.fecha_inscripcion = datetime.now(
+                    pytz.timezone('America/Caracas'))
+                registro.save()
 
     elif metodo == "Tarjeta de credito":
         cedula = request.POST['cedula']
         num_tarjeta = request.POST['numTarjeta']
         banco = request.POST['banco']
         num_referencia = request.POST['numReferncia']
-        monto = request.POST['monto']
 
+        # Aqui se guarda los datos en el modelo... Ejemplo
+        if registros_inscripcion:
+            for registro in registros_inscripcion:
+                pago_total = total(request)
+                pago_rec = RegistroPago.objects.create(
+                    fecha_pago=datetime.now(pytz.timezone('America/Caracas')),
+                    estudiante_id=request.user,
+                    registro_inscripcion=registro.id,
+                    metodo_pago=metodo,
+                    remitente_cedula=cedula,
+                    num_tarjeta=num_tarjeta,
+                    banco=banco,
+                    num_referencia=num_referencia,
+                    cantidad_pago=pago_total["pago_total"]
+                )
+                registro.pago_id = pago_rec
+                registro.fecha_inscripcion = datetime.now(
+                    pytz.timezone('America/Caracas'))
+                registro.save()
 
-        #Aqui se guarda los datos en el modelo... Ejemplo
-
-        RegistroPago.objects.create(cedula=cedula, num_tarjeta=num_tarjeta, 
-                    banco=banco, num_referencia=num_referencia, cantidad_pago=monto)
     else:
         cedula = request.POST['cedula']
         num_tarjeta = request.POST['numTarjeta']
         cuenta = request.POST['cuenta']
         banco = request.POST['banco']
         num_referencia = request.POST['numReferncia']
-        monto = request.POST['monto']
 
+        # Aqui se guarda los datos en el modelo... Ejemplo
+        if registros_inscripcion:
+            for registro in registros_inscripcion:
+                pago_total = total(request)
+                pago_rec = RegistroPago.objects.create(
+                    fecha_pago=datetime.now(pytz.timezone('America/Caracas')),
+                    estudiante_id=request.user,
+                    registro_inscripcion=registro.id,
+                    metodo_pago=metodo,
+                    remitente_cedula=cedula,
+                    num_tarjeta=num_tarjeta,
+                    cuenta=cuenta,
+                    banco=banco,
+                    num_referencia=num_referencia,
+                    cantidad_pago=pago_total["pago_total"]
+                )
+                registro.pago_id = pago_rec
+                registro.fecha_inscripcion = datetime.now(
+                    pytz.timezone('America/Caracas'))
+                registro.save()
 
-        #Aqui se guarda los datos en el modelo... Ejemplo
-
-        RegistroPago.objects.create(cedula=cedula, num_tarjeta=num_tarjeta, 
-                    banco=banco, cuenta=cuenta, num_referencia=num_referencia, 
-                    cantidad_pago=monto)
-        
     return redirect("academico:estado_inscrito")
