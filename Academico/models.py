@@ -125,11 +125,17 @@ class RegistroPago(models.Model):
     fecha_pago = models.DateTimeField()
     estudiante_id = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     registro_inscripcion = models.IntegerField()
+    remitente_cedula = models.CharField(max_length=10, blank=True, null=True)
+    tlf = models.CharField(max_length=11, blank=True, null=True)
+    banco = models.CharField(max_length=60, blank=True, null=True)
+    moneda = models.CharField(max_length=10, blank=True, null=True)
+    num_tarjeta = models.CharField(max_length=30, blank=True, null=True)
+    cuenta = models.CharField(max_length=9, blank=True, null=True)
+    num_referencia = models.CharField(max_length=15, unique=True, blank=True)
     cantidad_pago = models.FloatField()
 
-    def __str__(self):
+    def _str_(self):
         return f'Registro: {self.id} Estudiante: {self.estudiante_id} Inscripcion: {self.registro_inscripcion}'
-
 
 class RegistroInscripcion(models.Model):
     id = models.AutoField(primary_key=True)

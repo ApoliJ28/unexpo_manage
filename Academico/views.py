@@ -485,8 +485,8 @@ def registro_pago(request):
 
         #Aqui se guarda los datos en el modelo... Ejemplo
 
-        RegistroInscripcion.objects.create(cedula=cedula, tlf=tlf, banco=banco, 
-                num_referencia=num_referencia, monto=monto)
+        RegistroPago.objects.create(cedula=cedula, tlf=tlf, banco=banco, 
+                num_referencia=num_referencia, cantidad_pago=monto)
         
 
     elif metodo == "Efectivo":
@@ -495,7 +495,7 @@ def registro_pago(request):
 
         #Aqui se guarda los datos en el modelo... Ejemplo
 
-        RegistroInscripcion.objects.create(moneda=moneda, monto=monto)
+        RegistroPago.objects.create(moneda=moneda, cantidad_pago=monto)
 
     elif metodo == "Tarjeta de credito":
         cedula = request.POST['cedula']
@@ -507,8 +507,8 @@ def registro_pago(request):
 
         #Aqui se guarda los datos en el modelo... Ejemplo
 
-        RegistroInscripcion.objects.create(cedula=cedula, num_tarjeta=num_tarjeta, 
-                    banco=banco, num_referencia=num_referencia, monto=monto)
+        RegistroPago.objects.create(cedula=cedula, num_tarjeta=num_tarjeta, 
+                    banco=banco, num_referencia=num_referencia, cantidad_pago=monto)
     else:
         cedula = request.POST['cedula']
         num_tarjeta = request.POST['numTarjeta']
@@ -520,8 +520,8 @@ def registro_pago(request):
 
         #Aqui se guarda los datos en el modelo... Ejemplo
 
-        RegistroInscripcion.objects.create(cedula=cedula, num_tarjeta=num_tarjeta, 
+        RegistroPago.objects.create(cedula=cedula, num_tarjeta=num_tarjeta, 
                     banco=banco, cuenta=cuenta, num_referencia=num_referencia, 
-                    monto=monto)
+                    cantidad_pago=monto)
         
     return redirect("academico:estado_inscrito")
