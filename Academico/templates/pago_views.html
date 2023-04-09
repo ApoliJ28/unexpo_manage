@@ -139,11 +139,6 @@ Inscripcion Pago
                         <div class="card-body">
                             <form action="{% url 'academico:registro_pago' %}" method="post">{% csrf_token %}
                                 <div class="form-label">
-                                    <p class="text-muted">Usuario</p>
-                                    <input type="text" id="usuario" name="usuario" Value="{{request.user}}"
-                                        class="form-control" readonly required>
-                                </div>
-                                <div class="form-label">
                                     <p class="text-muted">Metodo</p>
                                     <input type="text" id="metodo" name="metodo" Value="Pago movil"
                                         class="form-control" readonly required>
@@ -229,11 +224,6 @@ Inscripcion Pago
                         <div class="card-body">
                             <form action="{% url 'academico:registro_pago' %}" method="post">{% csrf_token %}
                                 <div class="form-label">
-                                    <p class="text-muted">Usuario</p>
-                                    <input type="text" id="usuario" name="usuario" Value="{{request.user}}"
-                                        class="form-control" readonly required>
-                                </div>
-                                <div class="form-label">
                                     <p class="text-muted">Metodo</p>
                                     <input type="text" id="metodo" name="metodo" Value="Efectivo"
                                         class="form-control" readonly required>
@@ -284,11 +274,6 @@ Inscripcion Pago
                         </div>
                         <div class="card-body">
                             <form action="{% url 'academico:registro_pago' %}" method="post">{% csrf_token %}
-                                <div class="form-label">
-                                    <p class="text-muted">Usuario</p>
-                                    <input type="text" id="usuario" name="usuario" Value="{{request.user}}"
-                                        class="form-control" readonly required>
-                                </div>
                                 <div class="form-label">
                                     <p class="text-muted">Metodo</p>
                                     <input type="text" id="metodo" name="metodo" Value="Tarjeta de credito"
@@ -376,11 +361,6 @@ Inscripcion Pago
                         </div>
                         <div class="card-body">
                             <form action="{% url 'academico:registro_pago' %}" method="post">{% csrf_token %}
-                                <div class="form-label">
-                                    <p class="text-muted">Usuario</p>
-                                    <input type="text" id="usuario" name="usuario" Value="{{request.user}}"
-                                        class="form-control" readonly required>
-                                </div>
                                 <div class="form-label">
                                     <p class="text-muted">Metodo</p>
                                     <input type="text" id="metodo" name="metodo" Value="Tarjeta de debito"

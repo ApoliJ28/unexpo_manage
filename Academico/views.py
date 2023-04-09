@@ -474,7 +474,7 @@ def volver_pago(request):
 
 def registro_pago(request):
     metodo = request.POST['metodo']
-    usuario = request.POST['usuario']
+    usuario = request.user
 
     if metodo == "Pago movil":
         cedula = request.POST['cedula']
