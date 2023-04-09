@@ -44,6 +44,8 @@ urlpatterns = [
     path('pago/volver_pago', login_required(views.volver_pago), name="volver_pago"),
     path('pago/estado_inscrito', login_required(views.estado_inscrito),
          name="estado_inscrito"),
+    path('pago/registro_pago', login_required(views.registro_pago), 
+         name="registro_pago"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

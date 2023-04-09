@@ -137,7 +137,17 @@ Inscripcion Pago
                             <p class="text-muted text-center">Formulario del pago movil</p>
                         </div>
                         <div class="card-body">
-                            <form action="#" method="post">{% csrf_token %}
+                            <form action="{% url 'academico:registro_pago' %}" method="post">{% csrf_token %}
+                                <div class="form-label">
+                                    <p class="text-muted">Usuario</p>
+                                    <input type="text" id="usuario" name="usuario" Value="{{request.user}}"
+                                        class="form-control" readonly required>
+                                </div>
+                                <div class="form-label">
+                                    <p class="text-muted">Metodo</p>
+                                    <input type="text" id="metodo" name="metodo" Value="Pago movil"
+                                        class="form-control" readonly required>
+                                </div>
                                 <div class="form-label">
                                     <strong>Cedula</strong>
                                     <input type="text" id="cedula" name="cedula" placeholder="Ingrese la cedula"
@@ -217,11 +227,29 @@ Inscripcion Pago
                             <p class="text-muted text-center">Formulario de pago en efectivo</p>
                         </div>
                         <div class="card-body">
-                            <form action="#" method="post">{% csrf_token %}
+                            <form action="{% url 'academico:registro_pago' %}" method="post">{% csrf_token %}
                                 <div class="form-label">
-                                    <strong>Moneda</strong>
-                                    <input type="text" id="moneda" name="moneda" placeholder="Ingrese la moneda"
-                                        class="form-control" required>
+                                    <p class="text-muted">Usuario</p>
+                                    <input type="text" id="usuario" name="usuario" Value="{{request.user}}"
+                                        class="form-control" readonly required>
+                                </div>
+                                <div class="form-label">
+                                    <p class="text-muted">Metodo</p>
+                                    <input type="text" id="metodo" name="metodo" Value="Efectivo"
+                                        class="form-control" readonly required>
+                                </div>
+                                <div class="form-label">
+                                    <div id="div_id_moneda" class="mb-3">
+                                        <label for="id_moneda" class="form-label requiredField">
+                                            <strong class="text-black">Moneda</strong>
+                                        </label>
+                                        <select name="moneda" class="select form-select" required="" id="id_moneda">
+                                            <option value="">----------</option>
+                                            <option value="Bolivares">Bolivares</option>
+                                            <option value="Dolares">Dolares</option>
+                                            <option value="Euros">Euros</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="form-label">
                                     <strong>Monto</strong>
@@ -255,7 +283,17 @@ Inscripcion Pago
                             <p class="text-muted text-center">Formulario del pago por tarjeta de credito</p>
                         </div>
                         <div class="card-body">
-                            <form action="#" method="post">{% csrf_token %}
+                            <form action="{% url 'academico:registro_pago' %}" method="post">{% csrf_token %}
+                                <div class="form-label">
+                                    <p class="text-muted">Usuario</p>
+                                    <input type="text" id="usuario" name="usuario" Value="{{request.user}}"
+                                        class="form-control" readonly required>
+                                </div>
+                                <div class="form-label">
+                                    <p class="text-muted">Metodo</p>
+                                    <input type="text" id="metodo" name="metodo" Value="Tarjeta de credito"
+                                        class="form-control" readonly required>
+                                </div>
                                 <div class="form-label">
                                     <strong>Cedula</strong>
                                     <input type="text" id="cedula" name="cedula" placeholder="Ingrese la cedula"
@@ -337,7 +375,17 @@ Inscripcion Pago
                             <p class="text-muted text-center">Formulario del pago por tarjeta de debito</p>
                         </div>
                         <div class="card-body">
-                            <form action="#" method="post">{% csrf_token %}
+                            <form action="{% url 'academico:registro_pago' %}" method="post">{% csrf_token %}
+                                <div class="form-label">
+                                    <p class="text-muted">Usuario</p>
+                                    <input type="text" id="usuario" name="usuario" Value="{{request.user}}"
+                                        class="form-control" readonly required>
+                                </div>
+                                <div class="form-label">
+                                    <p class="text-muted">Metodo</p>
+                                    <input type="text" id="metodo" name="metodo" Value="Tarjeta de debito"
+                                        class="form-control" readonly required>
+                                </div>
                                 <div class="form-label">
                                     <strong>Cedula</strong>
                                     <input type="text" id="cedula" name="cedula" placeholder="Ingrese la cedula"

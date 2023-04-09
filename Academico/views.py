@@ -471,3 +471,66 @@ def volver_pago(request):
             registro.save()
 
     return redirect("academico:estado_pago")
+
+def registro_pago(request):
+    metodo = request.POST['metodo']
+    usuario = request.POST['usuario']
+
+    if metodo == "Pago movil":
+        cedula = request.POST['cedula']
+        tlf = request.POST['tlf']
+        banco = request.POST['banco']
+        num_referencia = request.POST['numReferncia']
+
+        #Aqui se guarda los datos en el modelo... Ejemplo
+
+        registro = RegistroInscripcion.objects.get(estudiante_id=usuario)
+        registro.cedula = cedula
+        registro.tlf = tlf
+        registro.banco = banco
+        registro.num_referencia = num_referencia
+        registro.save()
+
+    elif metodo == "Efectivo":
+        moneda = request.POST['moneda']
+        monto = request.POST['monto']
+
+        #Aqui se guarda los datos en el modelo... Ejemplo
+
+        registro = RegistroInscripcion.objects.get(estudiante_id=usuario)
+        registro.moneda = moneda
+        registro.monto = monto
+        registro.save()
+
+    elif metodo == "Tarjeta de credito":
+        cedula = request.POST['cedula']
+        num_tarjeta = request.POST['numTarjeta']
+        banco = request.POST['banco']
+        num_referencia = request.POST['numReferncia']
+
+        #Aqui se guarda los datos en el modelo... Ejemplo
+
+        registro = RegistroInscripcion.objects.get(estudiante_id=usuario)
+        registro.cedula = cedula
+        registro.num_tarjeta = num_tarjeta
+        registro.banco = banco
+        registro.num_referencia = num_referencia
+        registro.save()
+    else:
+        cedula = request.POST['cedula']
+        num_tarjeta = request.POST['numTarjeta']
+        cuenta = request.POST['cuenta']
+        banco = request.POST['banco']
+        num_referencia = request.POST['numReferncia']
+
+        #Aqui se guarda los datos en el modelo... Ejemplo
+
+        registro = RegistroInscripcion.objects.get(estudiante_id=usuario)
+        registro.cedula = cedula
+        registro.num_tarjeta = num_tarjeta
+        registro.cuenta = cuenta
+        registro.banco = banco
+        registro.num_referencia = num_referencia
+        registro.save()
+        
+    return redirect("academico:cursos")
