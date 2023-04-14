@@ -8,7 +8,8 @@ class AsignaturaForm(ModelForm):
     class Meta:
         model = Materia
         # Creamos los campos a  traves del formulario
-        fields = '__all__'
+        fields = ('codigo', 'nombre', 'creditos', 'creditos_requerido', 
+                'departamento_id', 'semestre', )
 
 
 # FORMULARIO PARA EL REGISTRO DE USARIOS
