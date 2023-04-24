@@ -14,7 +14,7 @@ Todas las cuotas deben pagarse al final del registro, antes que el individuo se 
 
 Debes tener instalado python y django una vez hayas clonado el proyecto, para instalar ya Django se ejecuta el siguiente codigo, en la ventana de comandos:
 
-    py -m pip install Django
+    pip install Django
 
 Luego Instalar La Libreria Pytz Y Crispy_forms:
 
