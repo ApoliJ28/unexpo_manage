@@ -25,6 +25,10 @@ Luego Instalar La Libreria Pytz Y Crispy_forms:
 *Para crispy_forms:*
 
     pip install django-crispy-forms
+ 
+*Tambien instalar este paquete*
+    
+    pip install crispy_bootstrap5
 
 Luego de poder instalar todo lo que se requiere para recorrer la pagina, se puede ejecutar el comando para arrancar el servidor de django y poder visualizar la pagina desde el localhost:
 
